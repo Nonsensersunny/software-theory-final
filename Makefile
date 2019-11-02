@@ -3,3 +3,6 @@ prepare:
 	cd frontend && npm install
 	copy go.mod backend
 	copy go.sum backend
+
+deploy:
+	docker-compose up .
