@@ -1,0 +1,26 @@
+http:
+  host: 127.0.0.1
+  port: 8080
+  allow-origin:
+    - "*"
+    - "http://127.0.0.1:8080"
+
+mysql:
+  host: localhost
+  port: 3306
+  dbName: testdb
+  username: root
+  password: root
+
+redis:
+  host: localhost
+  port: 6379
+  username:
+  password:
+  dbName: 0
+
+mail:
+  host: smtp.exmail.qq.com
+  port: 465
+  username: 123456@qq.com
+  password:
