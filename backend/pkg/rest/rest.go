@@ -8,10 +8,10 @@ import (
 func REST(engine *gin.Engine) {
 	userRoute := engine.Group("/user")
 	{
-		userRoute.POST("/join", v1.Register)
+		userRoute.POST("/", v1.Register)
 	}
 
-	datasetRoute := engine.Group("/algo")
+	datasetRoute := engine.Group("/dataset")
 	{
 		datasetRoute.POST("/file", v1.UploadDataset)
 	}
