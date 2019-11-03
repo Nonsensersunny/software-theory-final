@@ -5,10 +5,10 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"os"
-	"software-theory-final/backend/internal/config"
-	"software-theory-final/backend/internal/log"
-	"software-theory-final/backend/internal/utils"
-	"software-theory-final/backend/pkg/rest"
+	"software-theory-final/internal/config"
+	"software-theory-final/internal/log"
+	"software-theory-final/internal/utils"
+	"software-theory-final/pkg/rest"
 	"strconv"
 )
 

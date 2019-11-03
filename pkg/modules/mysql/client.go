@@ -4,7 +4,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
-	"software-theory-final/backend/internal/log"
+	"software-theory-final/internal/log"
 	"strconv"
 )
 

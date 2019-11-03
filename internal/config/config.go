@@ -4,9 +4,9 @@ import (
 	"gopkg.in/gomail.v2"
 	"gopkg.in/yaml.v3"
 	"io/ioutil"
-	"software-theory-final/backend/internal/log"
-	"software-theory-final/backend/pkg/modules/mysql"
-	"software-theory-final/backend/pkg/modules/redis"
+	"software-theory-final/internal/log"
+	"software-theory-final/pkg/modules/mysql"
+	"software-theory-final/pkg/modules/redis"
 )
 
 type HttpConf struct {

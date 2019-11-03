@@ -2,7 +2,7 @@ package rest
 
 import (
 	"github.com/gin-gonic/gin"
-	v1 "software-theory-final/backend/pkg/rest/v1"
+	"software-theory-final/pkg/rest/v1"
 )
 
 func REST(engine *gin.Engine) {
@@ -13,6 +13,6 @@ func REST(engine *gin.Engine) {
 
 	datasetRoute := engine.Group("/dataset")
 	{
-		datasetRoute.POST("/file", v1.UploadDataset)
+		datasetRoute.POST("/", v1.UploadDataset)
 	}
 }

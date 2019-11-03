@@ -3,7 +3,7 @@ package middleware
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"software-theory-final/backend/internal/config"
+	"software-theory-final/internal/config"
 )
 
 func Auth() gin.HandlerFunc {

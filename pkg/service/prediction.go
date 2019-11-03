@@ -1,8 +1,8 @@
 package service
 
 import (
-	"software-theory-final/backend/pkg/modules/model"
-	"software-theory-final/backend/pkg/modules/mysql"
+	"software-theory-final/pkg/modules/model"
+	"software-theory-final/pkg/modules/mysql"
 )
 
 type PredictionService struct {

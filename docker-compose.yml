@@ -1,28 +1,31 @@
 version: "3.5"
 services:
-  web:
-    build: frontend/
-    ports:
-      - "8080:8080"
-    links:
-      - server
+#  web:
+#    build: frontend/
+#    ports:
+#      - "8080:8080"
+#    links:
+#      - server
 
   redis:
     image: redis:latest
-    ports:
-      - "6379:6379"
 
   mysql:
     image: mysql:latest
-    ports:
-      - "3306:3306"
     environment:
-      MYSQL_DATABASE: software_theory
+      MYSQL_DATABASE: software-theory
+      MYSQL_ROOT_PASSWORD: zyven
 
   server:
-    build: backend/
+    build: .
     ports:
-      - "3000:3000"
+      - "3000:8080"
+    restart: always
     links:
-      - redis
-      - mysql
+      - "redis:redis"
+      - "mysql:mysql"
+    depends_on:
+      - "redis"
+      - "mysql"
+    volumes:
+      - /home/zyven/go/src/software-theory-final/config:/app/config

@@ -5,11 +5,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"os"
-	"software-theory-final/backend/internal/config"
-	"software-theory-final/backend/internal/log"
-	"software-theory-final/backend/internal/utils"
-	"software-theory-final/backend/pkg/modules/model"
-	"software-theory-final/backend/pkg/service"
+	"software-theory-final/internal/config"
+	"software-theory-final/internal/log"
+	"software-theory-final/internal/utils"
+	"software-theory-final/pkg/modules/model"
+	"software-theory-final/pkg/service"
 )
 
 type userRegistVO struct {

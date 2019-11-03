@@ -3,7 +3,7 @@ package utils
 import (
 	"gopkg.in/gomail.v2"
 	"regexp"
-	"software-theory-final/backend/internal/config"
+	"software-theory-final/internal/config"
 )
 
 func SendMail(subject, content string, tos ...string) error {

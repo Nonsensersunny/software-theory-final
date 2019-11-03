@@ -6,10 +6,10 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"software-theory-final/backend/internal/config"
-	"software-theory-final/backend/internal/utils"
-	"software-theory-final/backend/pkg/modules/model"
-	"software-theory-final/backend/pkg/service"
+	"software-theory-final/internal/config"
+	"software-theory-final/internal/utils"
+	"software-theory-final/pkg/modules/model"
+	"software-theory-final/pkg/service"
 )
 
 func UploadDataset(c *gin.Context) {
