@@ -28,4 +28,4 @@ services:
       - "redis"
       - "mysql"
     volumes:
-      - /home/zyven/go/src/software-theory-final/config:/app/config
+      - /data/config:/app/config
