@@ -28,6 +28,6 @@ func (u *UserService) GetUserById(id string) (*model.User, error) {
 
 func (u *UserService) GetUserByMailAndPwd(mail, pwd string) (*model.User, error) {
 	user := &model.User{}
-	err := u.client.DB.Where("mail = ? and password = ?", mail, pwd).Scan(user).Error
+	err := u.client.DB.Table("users").Where("mail = ? and password = ?", mail, pwd).Scan(user).Error
 	return user, err
 }
