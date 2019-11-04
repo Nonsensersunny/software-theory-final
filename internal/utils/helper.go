@@ -1,6 +1,9 @@
 package utils
 
-import "github.com/gin-gonic/gin"
+import (
+	"fmt"
+	"github.com/gin-gonic/gin"
+)
 
 func ErrorHelper(err error, statusCode int) gin.H {
 	return gin.H{
@@ -28,4 +31,13 @@ func RespHelper(m M) gin.H {
 		"data":  m,
 		"error": "",
 	}
+}
+
+
+func GetDataSetsDir(id string) string {
+	return fmt.Sprintf("data/%s/dataset", id)
+}
+
+func GetPredictionsDir(id string) string {
+	return fmt.Sprintf("data/%s/prediction", id)
 }

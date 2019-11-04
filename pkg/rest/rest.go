@@ -15,6 +15,9 @@ func REST(engine *gin.Engine) {
 
 	datasetRoute := engine.Group("/dataset")
 	{
-		datasetRoute.POST("/", v1.UploadDataset)
+		datasetRoute.PUT("/", v1.UploadDataset)
+		datasetRoute.GET("/", v1.GetDataSets)
 	}
+
+
 }

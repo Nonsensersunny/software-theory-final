@@ -17,17 +17,17 @@ func NewDatasetService(client *mysql.Client) *DatasetService {
 }
 
 func (d *DatasetService) CreateDataset(dataset *model.Dataset) error {
-	return d.client.DB.Create(&dataset).Error
+	return d.client.DB.Table("datasets").Create(&dataset).Error
 }
 
 func (d *DatasetService) GetDatasetById(id string) (*model.Dataset, error) {
 	dataset := &model.Dataset{}
-	err := d.client.DB.Where("id = ?", id).Scan(dataset).Error
+	err := d.client.DB.Table("datasets").Where("id = ?", id).Scan(dataset).Error
 	return dataset, err
 }
 
 func (d *DatasetService) GetDatasetsByUid(uid string) ([]*model.Dataset, error) {
 	var datasets []*model.Dataset
-	err := d.client.DB.Where("uid = ?", uid).Scan(&datasets).Error
+	err := d.client.DB.Table("datasets").Where("uid = ?", uid).Scan(&datasets).Error
 	return datasets, err
 }

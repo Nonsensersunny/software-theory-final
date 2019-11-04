@@ -16,13 +16,13 @@ func NewUserService(client *mysql.Client) *UserService {
 }
 
 func (u *UserService) CreateUser(user *model.User) (*model.User, error) {
-	err := u.client.DB.Create(&user).Error
+	err := u.client.DB.Table("users").Create(&user).Error
 	return user, err
 }
 
 func (u *UserService) GetUserById(id string) (*model.User, error) {
 	user := &model.User{}
-	err := u.client.DB.Where("id = ?", id).Scan(user).Error
+	err := u.client.DB.Table("users").Where("id = ?", id).Scan(user).Error
 	return user, err
 }
 

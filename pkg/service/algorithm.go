@@ -16,11 +16,11 @@ func NewAlgorithmService(client *mysql.Client) *AlgorithmService {
 }
 
 func (a *AlgorithmService) CreateAlgorithm(algorithm *model.Algorithm) error {
-	return a.client.DB.Create(&algorithm).Error
+	return a.client.DB.Table("algorithms").Create(&algorithm).Error
 }
 
 func (a *AlgorithmService) GetAlgorithmById(id string) (*model.Algorithm, error) {
 	algorithm := &model.Algorithm{}
-	err := a.client.DB.Where("id = ?", id).Error
+	err := a.client.DB.Table("algorithms").Where("id = ?", id).Error
 	return algorithm, err
 }

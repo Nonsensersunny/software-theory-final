@@ -37,13 +37,23 @@ func Register(c *gin.Context) {
 		return
 	}
 
-	dataDir := fmt.Sprintf("%s/%s", utils.DATA_DIR, dbUser.Id)
+	dataDir := utils.GetDataSetsDir(dbUser.Id)
+	predDir := utils.GetPredictionsDir(dbUser.Id)
 	if _, err := os.Stat(dataDir); err == nil {
 		c.JSON(http.StatusOK, utils.ErrorHelper(err, utils.DIR_ALREADY_EXISTS))
 		return
 	}
 	if err := os.MkdirAll(dataDir, os.ModePerm); err != nil {
 		log.Info(err, dataDir)
+		c.JSON(http.StatusOK, utils.ErrorHelper(err, utils.CREATE_DIR_FAIL))
+		return
+	}
+	if _, err := os.Stat(predDir); err == nil {
+		c.JSON(http.StatusOK, utils.ErrorHelper(err, utils.DIR_ALREADY_EXISTS))
+		return
+	}
+	if err := os.MkdirAll(predDir, os.ModePerm); err != nil {
+		log.Info(err, predDir)
 		c.JSON(http.StatusOK, utils.ErrorHelper(err, utils.CREATE_DIR_FAIL))
 		return
 	}
