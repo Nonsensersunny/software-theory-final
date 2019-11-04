@@ -1,0 +1,31 @@
+version: "3.3"
+services:
+#  web:
+#    build: frontend/
+#    ports:
+#      - "8080:8080"
+#    links:
+#      - server
+
+  redis:
+    image: redis:latest
+
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: software-theory
+      MYSQL_ROOT_PASSWORD: zyven
+
+  server:
+    build: .
+    ports:
+      - "3000:8080"
+    restart: always
+    links:
+      - "redis:redis"
+      - "mysql:mysql"
+    depends_on:
+      - "redis"
+      - "mysql"
+    volumes:
+      - /data/config:/app/config

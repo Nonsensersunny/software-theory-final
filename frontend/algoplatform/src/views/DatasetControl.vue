@@ -6,7 +6,7 @@
       <el-button size="small" type="primary" @click="dialogVisible = true">上传数据集</el-button>
     </div>
     <div class="datasetTable" >
-      <el-table :data="tableData" border style="font-size:18px;" :row-style="{height:'80px'}"  >
+      <el-table :data="tableData" border style="font-size:18px;border-color:#009FCC" :row-style="{height:'80px'}"  >
         <el-table-column type="index"  align="center"  label="序号" width="100px"></el-table-column>
         <el-table-column prop="name" label="数据集名称"  align="center"  width="320px"></el-table-column>
         <el-table-column prop="type" label="类型"  align="center"  width="180px"></el-table-column>
@@ -96,7 +96,26 @@ export default {
       ]
     };
   },
+  created(){
+    this.initOptions();
+  },
   methods: {
+    initOptions(){
+      this.$axios.get('/dataset')
+      .then(response=>{
+        if(response.data.sucess){
+              console.log('response.data.data');
+              console.log(response.data.data);
+              this.tableData = [];
+              this.tableData = response.data.data;
+            }
+      })
+       .catch(error => {
+            console.log('error.message');
+            console.log(error.message);
+            alert(error.message);
+          })
+    },
     beforeupload(file) {
       //    let fd = new FormData();
       // fd.append('file',file);//传文件
@@ -150,8 +169,13 @@ export default {
 font-size: 18px;
 }
 .upload {
-  margin: 50px;
+  margin: 50px 0 50px 750px;
 }
+
+.el-table--border::after, .el-table--group::after, .el-table::before{
+  background-color:#009FCC;
+}
+
 .datasetControl {
   /* float: left; */
   font-family:'微软雅黑';
@@ -161,7 +185,7 @@ font-size: 18px;
 
 .datasetTable {
   /* display: inline; */
-  margin-left: 50px;
+  margin-left: 250px;
 }
 
 

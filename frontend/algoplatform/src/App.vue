@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="head">XXXXXXXXXXXXX占位</div>
+    <div class="head">疾 病 分 析 与 预 测 平 台</div>
     <div id="nav">
       <el-col :span="18">
         <h5>导航</h5>
@@ -9,8 +9,8 @@
           class="el-menu-vertical-demo"
           @open="handleOpen"
           @close="handleClose"
-          background-color="#545c64"
-          text-color="#fff"
+          background-color="#DDDDDD"
+          text-color="#000"
           active-text-color="#ffd04b"
         >
           <el-menu-item index="1">
@@ -73,18 +73,20 @@ span{
   font-size :18px;
 }
 .head {
+  height:100px;
   text-align: center;
-  font-size: 22px;
+  padding-top :30px;
+  font-size: 28px;
   color: #fff;
   font-family: '微软雅黑';
-  background-color: #545c64;
+  background-color: #888888;
   width: 100%;
 }
 
 #nav {
   width: 200px;
   height: 800px;
-  background-color: #545c64;
+  background-color: #DDDDDD;
   float: left;
 }
 
@@ -94,7 +96,7 @@ span{
 
 .el-menu-item span, .el-menu-item a {
   font-size: 18px;
-  color: #fff;
+  color: #000;
   text-decoration: none;
 }
 

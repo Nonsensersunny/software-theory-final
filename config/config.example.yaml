@@ -1,0 +1,26 @@
+http:
+  host: 127.0.0.1
+  port: 8080
+  allow-origin:
+    - "*"
+    - "http://127.0.0.1:8080"
+
+mysql:
+  host: mysql
+  port: 3306
+  dbName: software-theory
+  username: root
+  password: zyven
+
+redis:
+  host: redis
+  port: 6379
+  username:
+  password:
+  dbName: 0
+
+mail:
+  host: smtp.exmail.qq.com
+  port: 465
+  username: 123456@qq.com
+  password:

@@ -6,7 +6,7 @@
       <el-button size="small" type="primary" @click="dialogVisible = true">上传算法</el-button>
     </div>
     <div class="datasetTable" >
-      <el-table :data="tableData" border style="font-size:18px;" :row-style="{height:'80px'}"  >
+      <el-table :data="tableData" border style="font-size:18px;border-color:#009FCC" :row-style="{height:'80px'}"  >
         <el-table-column type="index"  align="center"  label="序号" width="100px"></el-table-column>
         <el-table-column prop="name" label="算法名称"  align="center"  width="320px"></el-table-column>
         <el-table-column prop="info" label="描述"  align="center"  width="300px"></el-table-column>
@@ -156,8 +156,12 @@ export default {
 font-size: 18px;
 }
 .upload {
-  margin: 50px;
+   margin: 50px 0 50px 750px;
 }
+.el-table--border::after, .el-table--group::after, .el-table::before{
+  background-color:#009FCC;
+}
+
 .algoControl {
   /* float: left; */
   font-family:'微软雅黑';
@@ -167,7 +171,7 @@ font-size: 18px;
 
 .datasetTable {
   /* display: inline; */
-  margin-left: 50px;
+  margin-left: 250px;
 }
 
 

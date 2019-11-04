@@ -1,0 +1,6 @@
+language: golang
+sudo: required
+services:
+  - docker
+script:
+  - make deploy
