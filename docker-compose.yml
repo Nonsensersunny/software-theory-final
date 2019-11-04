@@ -3,7 +3,7 @@ services:
   web:
     build: frontend/
     ports:
-      - "8080:80"
+      - "8901:80"
     links:
       - server
 
