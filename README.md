@@ -1,6 +1,14 @@
 # software-theory-final
 
-### 1. 数据字典
+### 1. 需求分析
+
+#### 1.1 用例图
+
+![Usecase Diagram](./docs/images/Usecase Diagram.png)
+
+<center>图1. 用例图</center>
+
+#### 1.2 数据字典
 
 - User
 
@@ -93,7 +101,8 @@
 
 ![Frontend](./docs/images/frontend.png)
 
-<center>图1. 前端示例</center>
+<center>图2. 前端示例</center>
+
 #### 3.4 版本管理
 
 本项目使用 *Git* 进行版本管理，项目的代码托管于[GitHub](https://github.com/Nonsensersunny/software-theory-final).
@@ -104,14 +113,22 @@
 
 ![Swagger](./docs/images/swagger.png)
 
-<center> 图2. Swagger部分接口示例</center>
+<center> 图3. Swagger部分接口示例</center>
+
 #### 3.6 CI/CD
 
 本项目采用了持续交付的软件开发流程，包括集成、测试与部署的自动化，基于 *Docker* 的构建流程，基于云服务的开发环境，*CI/DI* 流程图如下：
 
 ![Architecture](./docs/images/ci_cd.png)
 
-<center>图3. CI/CD 流程</center>
+<center>图4. CI/CD 流程</center>
+
+系统的部署图如下：
+
+![Deployment Diagram](/home/zyven/go/src/software-theory-final/docs/images/Deployment Diagram.png)
+
+<center>图5. 部署图</center>
+
 ##### 3.6.1 Travis
 
 *Travis* 是集成于 *GitHub* 中的一款开源的 *CI* 工具，可在项目的仓库中设置 *Travis* 配置，为项目添加触发器，例如本项目添加了 *Push* 操作的触发器，当项目的代码更新时，*Travis* 会自动 *Pull* 代码仓库中的代码并执行 *CI* 脚本，脚本的格式如下：
@@ -132,14 +149,16 @@ script:
 
 ![Travis](./docs/images/travis.png)
 
-<center>图4. Travis 示例</center>
+<center>图6. Travis 示例</center>
+
 ##### 3.6.2 Jenkins
 
 同 *Travis* 类似，*Jenkins* 是另外一款开源的 *CI/CD* 工具，与 *Travis* 不同的是，*Jenkins* 的 *CI/CD* 服务基于插件，而 *Travis* 则是分布式的，因此 *Travis* 的设计理念更加先进，但 *Jenkins* 中有许多优秀的插件可以使用，本项目采用了基于 *Jenkins* 的 *docker-compose* 进行多阶段服务构建和自动部署，构建效果如下：
 
 ![Jenkins](./docs/images/jenkins.png)
 
-<center>图5. Jenkins 示例</center>
+<center>图7. Jenkins 示例</center>
+
 ##### 3.6.3 Docker
 
 项目的 *CI/CD* 采用了 *Docker* 以及容器编排工具 *docker-compose*，后端的容器构建脚本如下：
