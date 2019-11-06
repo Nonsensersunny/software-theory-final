@@ -1,88 +1,72 @@
-import axios from 'axios'
-import Vue from 'vue'
-axios.defaults.baseURL = 'http://106.13.90.235:10000' // 配置你的接口请求地址
-// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN //配置token,看情况使用
-axios.defaults.headers.post['Content-Type'] =
-  'application/x-www-form-urlencoded' // 配置请求头信息。
+import axios from "axios";
 
-Vue.prototype.$axios = axios
+import {ErrorCode, RespError} from "@/axios/type.js"
+import {server} from '@/axios/config.js'
 
-// 请求拦截器
-axios.interceptors.request.use(
-  function (config) {
-    return config
+export const GuestHttp = {
+  client: axios.create({
+    baseURL: 'http://${server.host}:${server.port}'
+  }),
+  async uoload_dataset(dataset){
+    let data = new FormData();
+    data.set('测试连接',dataset.uid)
+    data.set('',dataset.path)
+    let res = await this.client.post('/dataset',dataset)
   },
-  function (error) {
-    return Promise.reject(error)
-  }
-)
-// 响应拦截器
-axios.interceptors.response.use(
-  function (response) {
-    return response
+  async register(user) {
+    let data = new FormData();
+    data.set('mail', user.mail);
+    data.set('password', user.password);
+    let res = await this.client.put('/user', user);
+    return res;
   },
-  function (error) {
-    return Promise.reject(error)
-  }
-)
-
-// 封装axios的post请求
-export function fetch (url, params) {
-  return new Promise((resolve, reject) => {
-    axios
-      .post(url, params)
-      .then(response => {
-        resolve(response.data)
-      })
-      .catch(error => {
-        reject(error)
-      })
-  })
-}
-
-// 封装axios的post请求
-export function fetchfile (url, params) {
-  return new Promise((resolve, reject) => {
-    axios
-      .post(url, params, {
-        responseType: 'blob'
-      })
-      .then(response => {
-        resolve(response.data)
-      })
-      .catch(error => {
-        reject(error)
-      })
-  })
-}
-
-export function getFiles (url) {
-  return new Promise((resolve, reject) => {
-    axios({
-      method: 'get',
-      url,
-      responseType: 'arraybuffer'
-    })
-      .then(data => {
-        resolve(data.data)
-      })
-      .catch(error => {
-        reject(error.toString())
-      })
-  })
-}
-
-export default {
-  JH_news (url, params) {
-    return fetch(url, params)
+  async signin(user) {
+    let data = new FormData();
+    data.set('mail', user.mail);
+    data.set('password', user.password);
+    let res = await this.client.post('/user', user);
+    return res;
   },
-  Hosturl () {
-    return axios.defaults.baseURL + '/'
+  async signup(user) {
+    let data = new FormData();
+    data.set('username', user.username);
+    data.set('password', user.password);
+    let res = await this.client.post('/register', user);
+    return res;
   },
-  getFile (url) {
-    return getFiles(url)
-  },
-  JH_File (url, params) {
-    return fetchfile(url, params)
+  async getDataset(dataset){
+    let resp = await this.client.get('/dataset');
+    return resp.data.data['data']
+
   }
 }
+
+export const UserHttp = {
+  client: axios.create({
+    baseURL: 'http://106.13.90.235:10000',
+  }),
+
+}
+
+function errorHandler(e) {
+  if (!e.response) {
+    console.error(e);
+    let error = new RespError(0, ErrorCode.Undefined, '');
+    return Promise.reject(error);
+  }
+  let resp = e.response;
+  if (resp.status >= 500) {
+    let error = new RespError(resp.status, ErrorCode.ServerError, '');
+    return Promise.reject(error);
+  }
+  let errorBody = resp.data.error;
+  if (!errorBody || !errorBody.code) {
+    let error = new RespError(resp.status, ErrorCode.Undefined, resp.data);
+    return Promise.reject(error);
+  }
+  let error = new RespError(resp.status, errorBody.code, resp.msg);
+  return Promise.reject(error);
+}
+
+// GuestHttp.client.interceptors.response.use(resp => resp, errorHandler);
+// UserHttp.client.interceptors.response.use(resp => resp, errorHandler);

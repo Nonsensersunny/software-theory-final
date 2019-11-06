@@ -1,5 +1,6 @@
 <template>
   <div class="algoControl">
+    <center>
    <div class="datasetTable" >
       <el-table :data="tableData" border style="font-size:18px;" :row-style="{height:'80px'}"  >
         <el-table-column  prop="id" align="center"  label="序号" width="100px"></el-table-column>
@@ -8,12 +9,13 @@
         <el-table-column prop="time" label="预测时间"  align="center"  width="280px"></el-table-column>
         <el-table-column prop="work" label="操作"  align="center"  width="280px">
           <template slot-scope="scope">
-            <el-button style="color:#409EFF"  @click="check(scope.row)" >查看预测结果</el-button>
+            <el-button style="color:#409EFF"  @click="check(scope)" >查看预测结果</el-button>
           </template>
         </el-table-column>
         
       </el-table>
-    </div>   
+    </div> 
+    </center>  
   </div>
 </template>
 
@@ -50,7 +52,7 @@ export default {
 font-size: 18px;
 }
 .upload {
-  margin: 50px;
+ 
 }
 .algoControl {
   /* float: left; */
@@ -61,7 +63,7 @@ font-size: 18px;
 
 .datasetTable {
   /* display: inline; */
-  margin-left: 50px;
+  
 }
 
 

@@ -10,8 +10,8 @@ Vue.config.productionTip = false
 import axios from 'axios';
 Vue.prototype.$axios = axios;
 
-axios.defaults.timeout = 500000;
-axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
+axios.defaults.timeout = 50000;
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 axios.defaults.baseURL = "http://106.13.90.235:10000";
 
 /* eslint-disable no-new */

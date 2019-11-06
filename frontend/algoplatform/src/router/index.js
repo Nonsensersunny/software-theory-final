@@ -6,8 +6,15 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
+  {
+      path: '/main',
+      name: '主界面',
+      component: () => import(/* webpackChunkName: "about" */ '../views/main.vue')
+  
+      // component: DatasetControl
+    },
     {
-      path: '/',
+      path: '/dataset',
       name: '数据集管理',
       component: () => import(/* webpackChunkName: "about" */ '../views/DatasetControl.vue')
   

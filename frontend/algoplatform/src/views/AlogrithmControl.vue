@@ -2,6 +2,7 @@
   <div class="algoControl">
     <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+    <center>
     <div class="upload">
       <el-button size="small" type="primary" @click="dialogVisible = true">上传算法</el-button>
     </div>
@@ -63,6 +64,7 @@
         <el-button type="primary" @click="uploadDataset">确 定</el-button>
       </div>
     </el-dialog>
+    </center>
   </div>
 </template>
 
@@ -156,7 +158,7 @@ export default {
 font-size: 18px;
 }
 .upload {
-   margin: 50px 0 50px 750px;
+   margin: 50px  auto ;
 }
 .el-table--border::after, .el-table--group::after, .el-table::before{
   background-color:#009FCC;
@@ -171,7 +173,7 @@ font-size: 18px;
 
 .datasetTable {
   /* display: inline; */
-  margin-left: 250px;
+  margin-left: 150px;
 }
 
 

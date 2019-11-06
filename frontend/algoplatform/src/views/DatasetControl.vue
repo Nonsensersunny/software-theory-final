@@ -2,6 +2,7 @@
   <div class="datasetControl">
     <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+    <center>
     <div class="upload">
       <el-button size="small" type="primary" @click="dialogVisible = true">上传数据集</el-button>
     </div>
@@ -21,12 +22,14 @@
       </el-table>
     </div>
 
-    <el-dialog title="上传数据集" :visible.sync="dialogVisible" width="30%">
-      <el-upload
+    <el-dialog title="上传数据集" :visible.sync="dialogVisible" width="600px">
+      <span>选择文件</span>
+      <el-input type="file" @change="handleUpload"></el-input>
+      <!-- <el-upload
         accept=".csv"
         class="upload-demo"
         action="/"
-        :data="pps"
+        
         :show-file-list="false"
         :on-success="upload1"
         :before-upload="beforeupload"
@@ -34,14 +37,14 @@
       >
         <el-button class="btn_upload"  type="primary" style="float:left">选择文件</el-button>
         <div slot="tip" style="display:inline-block;margin-bottom:20px;margin-left:10px;" class="el-upload__tip">只能上传csv/excel文件</div>
-      </el-upload>
+      </el-upload> -->
       <el-form style="width:590px;">
               <el-form-item :model="form">
-        <el-form-item label="数据集名称" :label-width="formLabelWidth" style="width:100%;margin-bottom:10px">
+        <el-form-item label="名称" :label-width="formLabelWidth" style="width:90%;margin-bottom:10px">
           <el-input v-model="form.fileName" disabled></el-input>
         </el-form-item>
         <el-form-item label="类型" :label-width="formLabelWidth">
-          <el-select v-model="form.fileType" placeholder="请选择" style="width:100%;margin-bottom:10px">
+          <el-select v-model="form.fileType" placeholder="请选择" style="width:90%;margin-bottom:10px">
             <el-option
               v-for="item in options"
               :key="item.value"
@@ -50,7 +53,7 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="描述" :label-width="formLabelWidth" style="width:100%;margin-bottom:10px">
+        <el-form-item label="描述" :label-width="formLabelWidth" style="width:90%;margin-bottom:10px">
           <el-input type="textarea" v-model="form.fileInfo" :rows="3" placeholder="请输入对数据集的描述"></el-input>
         </el-form-item>
       </el-form-item>
@@ -60,17 +63,20 @@
         <el-button type="primary" @click="uploadDataset">确 定</el-button>
       </div>
     </el-dialog>
+  </center>
   </div>
 </template>
 
 <script>
+  // import api from '@/axios/api'
 export default {
   name: "datasetControl",
   data() {
     return {
+      
       fileList: [],
       dialogVisible: false,
-      formLabelWidth: "120px",
+      formLabelWidth: "90px",
       form: {
         fileName: "", //数据集名字
         fileType: "", //训练集还是预测集
@@ -78,7 +84,7 @@ export default {
         fileTime: "", //上传时间
         fileList: "" //数据
       },
-      pps: {},
+      
       options: [
         { value: "预测集", label: "预测集" },
         { value: "训练集", label: "训练集" }
@@ -97,25 +103,29 @@ export default {
     };
   },
   created(){
-    this.initOptions();
+    // this.initOptions();
   },
   methods: {
     initOptions(){
-      this.$axios.get('/dataset')
-      .then(response=>{
-        if(response.data.sucess){
-              console.log('response.data.data');
-              console.log(response.data.data);
-              this.tableData = [];
-              this.tableData = response.data.data;
-            }
-      })
-       .catch(error => {
-            console.log('error.message');
-            console.log(error.message);
-            alert(error.message);
-          })
+     // axios.post('http://106.13.90.235:10000/user')
+     // .then(function(response),)
+      
+      // this.$axios.get('/dataset')
+      // .then(response=>{
+      //   if(response.data.sucess){
+      //         console.log('response.data.data');
+      //         console.log(response.data.data);
+      //         this.tableData = [];
+      //         this.tableData = response.data.data;
+      //       }
+      // })
+      //  .catch(error => {
+      //       console.log('error.message');
+      //       console.log(error.message);
+      //       alert(error.message);
+      //     })
     },
+    handleUpload(){},
     beforeupload(file) {
       //    let fd = new FormData();
       // fd.append('file',file);//传文件
@@ -169,7 +179,7 @@ export default {
 font-size: 18px;
 }
 .upload {
-  margin: 50px 0 50px 750px;
+  margin: 50px ;
 }
 
 .el-table--border::after, .el-table--group::after, .el-table::before{
