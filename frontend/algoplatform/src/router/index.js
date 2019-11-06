@@ -6,7 +6,13 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-  {
+    {
+      path: '/',
+      name: '登录',
+      component: () => import(/* webpackChunkName: "about" */ '../views/login.vue')
+  
+      // component: DatasetControl
+    },{
       path: '/main',
       name: '主界面',
       component: () => import(/* webpackChunkName: "about" */ '../views/main.vue')

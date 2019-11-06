@@ -3,7 +3,7 @@ services:
 #  web:
 #    build: frontend/
 #    ports:
-#      - "8080:8080"
+#      - "8901:80"
 #    links:
 #      - server
 
@@ -19,7 +19,7 @@ services:
   server:
     build: .
     ports:
-      - "3000:8080"
+      - "10000:8080"
     restart: always
     links:
       - "redis:redis"

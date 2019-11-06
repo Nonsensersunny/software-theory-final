@@ -27,7 +27,7 @@ func UploadDataset(c *gin.Context) {
 		return
 	}
 
-	filename := fmt.Sprintf("%s/%s/%s", utils.DATA_DIR, uid, header.Filename)
+	filename := fmt.Sprintf("%s/%s", utils.GetDataSetsDir(uid), header.Filename)
 	out, err := os.Create(filename)
 	defer out.Close()
 	if err != nil {
@@ -49,5 +49,43 @@ func UploadDataset(c *gin.Context) {
 		c.JSON(http.StatusOK, utils.ErrorHelper(err, utils.CREATE_DATASET_FAIL))
 		return
 	}
-	c.JSON(http.StatusOK, utils.RespHelper(utils.SuccessResp()))
+	c.JSON(http.StatusOK, utils.RespHelper(utils.SetData("id", uid)))
+}
+
+func GetDatasetById(id string, c *gin.Context) {
+	service := service.NewDatasetService(config.GetMySQLClient())
+	dbDataset, err := service.GetDatasetById(id)
+	if dbDataset.Id == "" || err != nil {
+		c.JSON(http.StatusOK, utils.ErrorHelper(err, utils.DATASET_NOT_EXISTS))
+		return
+	}
+
+	c.JSON(http.StatusOK, utils.RespHelper(utils.SetData("dataset", dbDataset)))
+}
+
+func GetDatasetsByUid(uid string, c *gin.Context) {
+
+
+	service := service.NewDatasetService(config.GetMySQLClient())
+	dataSets, err := service.GetDatasetsByUid(uid)
+	if err != nil {
+		c.JSON(http.StatusOK, utils.ErrorHelper(err, utils.DATASET_NOT_EXISTS))
+		return
+	}
+	c.JSON(http.StatusOK, utils.RespHelper(utils.SetData("datasets", dataSets)))
+}
+
+func GetDataSets(c *gin.Context) {
+	id := c.Query("id")
+	if id != "" {
+		GetDatasetById(id, c)
+		return
+	}
+
+	uid, err := c.Cookie("uid")
+	if err != nil || uid == "" {
+		c.JSON(http.StatusOK, utils.ErrorHelper(err, utils.INVALID_COOKIE))
+		return
+	}
+	GetDatasetsByUid(uid, c)
 }
