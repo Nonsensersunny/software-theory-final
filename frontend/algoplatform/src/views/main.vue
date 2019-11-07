@@ -2,15 +2,16 @@
   <div id="app">
     <div class="head">
       <div class="block">
-    <el-carousel height="150px">
-      <el-carousel-item v-for="item in 4" :key="item">
-        <h1> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;疾 病 分 析 与 预 测 平 台 </h1>
-      </el-carousel-item>
-    </el-carousel>
-  </div>
+        <el-carousel height="150px">
+          <el-carousel-item v-for="item in 4" :key="item">
+            <h1> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;疾 病 分 析 与 预 测 平 台 </h1>
+          </el-carousel-item>
+        </el-carousel>
+      </div>
   
- </div>
-    <div id="nav">
+    </div>
+    <div id="nav"> 
+    
       <el-col :span="18">
       
         <el-menu
@@ -22,28 +23,28 @@
           text-color="#000"
           active-text-color="#ffd04b"
         >
-          <el-menu-item index="1">
+          <el-menu-item index="1" @click="changeItem">
             <i class="el-icon-document"></i>
-            <router-link to="/dataset">数据集管理</router-link>
+            <span>数据集管理</span>
             <!-- <span slot="title">数据集管理</span> -->
           </el-menu-item>
-          <el-menu-item index="2">
+          <el-menu-item index="2" @click="changeItem">
             <i class="el-icon-document"></i>
-            <router-link to="/algorithm">算法管理</router-link>
+            <span>算法管理</span>
           </el-menu-item>
           <el-submenu index="3">
             <template slot="title">
               <i class="el-icon-location"></i>
-              <span font-size="18px">预测进程</span>
+            <span>预测进程</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="3-1">
+              <el-menu-item index="3-1" @click="changeItem">
                 <i class="el-icon-document"></i>
-                <router-link to="/forecast/begin">开始预测</router-link>
+            <span>开始预测</span>
               </el-menu-item>
-              <el-menu-item index="3-2">
+              <el-menu-item index="3-2" @click="changeItem">
                 <i class="el-icon-document"></i>
-                <router-link to="/forecast/check">预测结果</router-link>
+            <span>预测结果</span>
               </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
@@ -58,21 +59,49 @@
           </el-menu-item>
         </el-menu>
       </el-col>
+        
       <!-- <router-link to="/">Home</router-link> | -->
       <!-- <router-link to="/about">About</router-link> -->
     </div>
-
+    <div style="float: left;width: 1000px;" >
+      <component v-bind:is="comp"  @change="change">  </component>
+    </div>
     <router-view />
   </div>
 </template>
 <script>
+  import DatasetControl from './DatasetControl.vue'
+  import AlogrithmControl from './AlogrithmControl.vue'
+  import check_forecast from './check_forecast.vue'
+  import begin_forecast from './begin_forecast.vue'
 export default {
+  components:{DatasetControl,AlogrithmControl,check_forecast,begin_forecast},
+  data(){
+    return {
+      comp:'DatasetControl'
+    }
+  },
   methods: {
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
     },
     handleClose(key, keyPath) {
       console.log(key, keyPath);
+    },
+    changeItem(params){
+      if(params.index == '1')
+        this.comp = "DatasetControl"
+      else if(params.index == "2")
+        this.comp = "AlogrithmControl"
+      else if(params.index == "3-1")
+        this.comp = "begin_forecast"
+      else if (params.index == "3-2")
+        this.comp = "check_forecast"
+      console.log(params)
+      // this.comp = AlogrithmControl
+    },
+    change(params){
+      this.comp = "check_forecast"
     }
   }
 };

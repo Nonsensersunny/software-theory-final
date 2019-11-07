@@ -64,6 +64,26 @@
         <el-button type="primary" @click="uploadDataset">确 定</el-button>
       </div>
     </el-dialog>
+    <!-- <el-dialog :title="show_algo.fileName" :visible.sync="data_table" width="600px">
+      <el-form :ref="show_dataset">
+        <el-form-item label="名称" :label-width="formLabelWidth" >
+          <el-input v-model="show_dataset.fileName" disabled style="width:80%;margin-bottom:10px"></el-input>
+        </el-form-item>
+        <el-form-item label="路径" :label-width="formLabelWidth" >
+          <el-input v-model="show_dataset.filePath" disabled style="width:80%;margin-bottom:10px"></el-input>
+        </el-form-item>
+        <el-form-item label="类型" :label-width="formLabelWidth">
+          <el-input v-model="show_dataset.fileType" disabled style="width:80%;margin-bottom:10px"></el-input>
+        </el-form-item>
+        <el-form-item label="上传时间" :label-width="formLabelWidth">
+          <el-input v-model="show_dataset.fileTime" disabled style="width:80%;margin-bottom:10px"></el-input>
+        </el-form-item>
+        <el-form-item label="描述" :label-width="formLabelWidth" >
+          <el-input type="textarea" v-model="show_dataset.fileInfo" disabled :rows="3" style="width:80%;margin-bottom:10px"></el-input>
+        </el-form-item>
+      </el-form-item>
+      </el-form>
+    </el-dialog> -->
     </center>
   </div>
 </template>
@@ -83,6 +103,13 @@ export default {
         fileInfo: "", //描述
         fileTime: "", //上传时间
         fileList: "" //数据
+      },
+      show_algo:{
+        fileName: "1", //数据集名字
+        filePath:"",
+        fileType: "", //训练集还是预测集
+        fileInfo: "", //描述
+        fileTime: "", //上传时间
       },
      
       // options: [
@@ -173,7 +200,7 @@ font-size: 18px;
 
 .datasetTable {
   /* display: inline; */
-  margin-left: 150px;
+  margin-left: 10px;
 }
 
 

@@ -15,26 +15,30 @@ export default new Router({
     },{
       path: '/main',
       name: '主界面',
-      component: () => import(/* webpackChunkName: "about" */ '../views/main.vue')
-  
+      component: () => import(/* webpackChunkName: "about" */ '../views/main.vue'),
+      children: [{
+        path: '/dataset',
+        component: () => import('@/views/DatasetControl.vue'),
+        name: 'dataset',
+        }]
       // component: DatasetControl
     },
     {
-      path: '/dataset',
+      path: '/main/dataset',
       name: '数据集管理',
       component: () => import(/* webpackChunkName: "about" */ '../views/DatasetControl.vue')
   
       // component: DatasetControl
     },
     {
-      path: '/dataset',
+      path: '/main/dataset',
       name: '数据集管理',
       component: () => import(/* webpackChunkName: "about" */ '../views/DatasetControl.vue')
   
       // component: DatasetControl
     },
     {
-      path: '/algorithm',
+      path: '/main/algorithm',
       name: '算法管理',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
@@ -42,17 +46,17 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ '../views/AlogrithmControl.vue')
     },
     {
-      path: '/forecast',
+      path: '/main/forecast',
       name: '预测进程',
       component: () => import(/* webpackChunkName: "about" */ '../views/begin_forecast.vue')
     },
     {
-      path: '/forecast/begin',
+      path: '/main/forecast/begin',
       name: '开始预测',
       component: () => import(/* webpackChunkName: "about" */ '../views/begin_forecast.vue')
     }, 
     {
-      path: '/forecast/check',
+      path: '/main/forecast/check',
       name: '预测结果',
       component: () => import(/* webpackChunkName: "about" */ '../views/check_forecast.vue')
     },

@@ -2,14 +2,15 @@
   <div class="algoControl">
     <center>
    <div class="datasetTable" >
-      <el-table :data="tableData" border style="font-size:18px;" :row-style="{height:'80px'}"  >
+    <div style="text-align: left;font-size: 18px;margin-bottom: 10px;"><span style="font-size: 18px;color: #009FCC">全部预测：</span></div>
+      <el-table :data="tableData" border style="font-size:18px;border-color: #009FCC" :row-style="{height:'80px'}"  >
         <el-table-column  prop="id" align="center"  label="序号" width="100px"></el-table-column>
-        <el-table-column prop="dataset" label="算法名称"  align="center"  width="320px"></el-table-column>
-        <el-table-column prop="algo" label="算法名称"  align="center"  width="320px"></el-table-column>
+        <el-table-column prop="dataset" label="算法名称"  align="center"  width="280px"></el-table-column>
+        <el-table-column prop="algo" label="算法名称"  align="center"  width="280px"></el-table-column>
         <el-table-column prop="time" label="预测时间"  align="center"  width="280px"></el-table-column>
         <el-table-column prop="work" label="操作"  align="center"  width="280px">
           <template slot-scope="scope">
-            <el-button style="color:#409EFF"  @click="check(scope)" >查看预测结果</el-button>
+            <el-button style="color:#409EFF"  @click="check(scope)" >查看结果</el-button>
           </template>
         </el-table-column>
         
@@ -49,7 +50,7 @@ export default {
 </script>
 <style scoped>
 *{
-font-size: 18px;
+font-size: 16px;
 }
 .upload {
  
@@ -57,10 +58,14 @@ font-size: 18px;
 .algoControl {
   /* float: left; */
   font-family:'微软雅黑';
-  font-size: 18px;
+  font-size: 16px;
   display: inline-block;
+  margin-left: 30px;
+  margin-top: 50px;
 }
-
+.el-table--border::after, .el-table--group::after, .el-table::before{
+  background-color:#009FCC;
+}
 .datasetTable {
   /* display: inline; */
   

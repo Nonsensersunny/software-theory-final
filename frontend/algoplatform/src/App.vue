@@ -6,9 +6,7 @@
 </template>
 
 <script>
-  import {GuestHttp} from '@/axios/api.js'
-import Cookies from 'js-cookie'
-
+ 
 export default {
   data() {
     return {

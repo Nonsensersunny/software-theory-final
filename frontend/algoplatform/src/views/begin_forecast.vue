@@ -86,14 +86,16 @@
         }
       },
       beginForecast(){
-      	this.$router.push('/forecast/check')
+      	this.$emit('change','check_forecast')
+      	// this.$router.push('/forecast/check')
       }
     }
   }
 </script>
 <style type="text/css">
 	.forecast{
-		margin:50px 0 50px 50px;
+		margin-top: 100px ;
+		margin-left: 100px;
 	}
 	.group{
 		margin:50px ;
