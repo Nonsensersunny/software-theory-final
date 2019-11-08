@@ -112,10 +112,15 @@ export default {
       formLabelWidth: "90px",
       form: {
         fileName: "", //数据集名字
-        filePath: "",
+        filePath: "",//路径
         fileType: "", //训练集还是预测集
         fileInfo: "", //描述
         fileTime: "" //上传时间
+      },
+      uploadFile:{
+        path:'',
+        description:'',
+        time:''
       },
       show_dataset: {
         fileName: "1", //数据集名字
@@ -165,20 +170,31 @@ export default {
       });
       this.$message.success(params.type + "  " + params.name + "  删除成功!");
     },
-    uploadSuccess(params) {
-      //上传到前端，缓存 ?
-      const formDate = new FormData();
-      formDate.append("file", params.file);
-      // console.log(formDate)
-      this.form.fileName = params.file.name;
-      var str = "";
-      // str = params.
-      // console.log(this.pps);
-    },
+    
     uploadDataset() {
       //提交表单，上传到数据库里
       var myDate = new Date();
       this.form.fileTime = myDate.toLocaleString();
+      //请求后端
+      var formdata = new FormData();
+      formdata.set('path',this.form.filePath)
+      formdata.set('description',this.form.fileInfo)
+      formdata.set('time',this.form.fileTime)
+       this.$axios.put(this.$axios.defaults.baseURL+'/dataset/',formdata)
+      .then(response=>{
+        console.log(response)
+        // this.$router.push('/main/')
+        // console.log(this.$cookies.set(this.ruleForm.mail))
+        // console.log(Cookies.get())
+      });
+       this.$axios.put(this.$axios.defaults.baseURL+'/dataset/',formdata)
+      .then(response=>{
+        console.log(response)
+        // this.$router.push('/main/')
+        // console.log(this.$cookies.set(this.ruleForm.mail))
+        // console.log(Cookies.get())
+      });
+      //提示信息
       if (this.form.fileType === "预测集")
         this.$message.success("预测集 " + this.form.fileName + " 上传成功!");
       else if (this.form.fileType === "训练集")

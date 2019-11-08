@@ -65,10 +65,10 @@ export default {
         // console.log(this.$cookies.set(this.ruleForm.mail))
         // console.log(Cookies.get())
       });
-      // this.$axios.get(this.$axios.defaults.baseURL+'/user/',JSON.stringify(this.ruleForm))
-      // .then(response=>{
-      //   console.log(response)
-      // })
+      this.$axios.get(this.$axios.defaults.baseURL+'/user/',JSON.stringify(this.ruleForm))
+      .then(response=>{
+        console.log(response)
+      })
     }
   }
 };
