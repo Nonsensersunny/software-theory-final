@@ -11,14 +11,17 @@ import axios from 'axios';
 Vue.prototype.$axios = axios;
 import VueCookie from 'vue-cookie'
 Vue.use(VueCookie)
+import echarts from 'echarts'
+Vue.use(echarts)
+Vue.prototype.$echarts = echarts
 // Vue.use(Cookies)
 axios.defaults.timeout = 50000;
 axios.defaults.headers.put['Access-Control-Allow-Origin']=''
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
 axios.defaults.headers.get['Content-Type'] = 'application/json;charset=utf-8';
 axios.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
-axios.defaults.baseURL = "http://10.51.65.53:10000";
-// axios.defaults.withCredentials = true;
+axios.defaults.baseURL = "http://106.13.90.235:10000";
+axios.defaults.withCredentials = true;
 // Vue.http.interceptors.push(function(request,next){
 //   request.credentials = true;
 // })

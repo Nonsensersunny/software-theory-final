@@ -13,14 +13,14 @@
           style="font-size:18px;border-color:#009FCC"
           :row-style="{height:'80px'}"
         >
-          <el-table-column type="index" align="center" label="序号" width="100px"></el-table-column>
-          <el-table-column prop="name" label="算法名称" align="center" width="320px"></el-table-column>
-          <el-table-column prop="info" label="描述" align="center" width="300px"></el-table-column>
-          <el-table-column prop="uploadtime" label="上传时间" align="center" width="280px"></el-table-column>
-          <el-table-column prop="work" label="操作" align="center" width="280px">
+          <el-table-column type="index" align="center" label="序号" ></el-table-column>
+          <el-table-column prop="name" label="算法名称" align="center" ></el-table-column>
+          <el-table-column prop="info" label="描述" align="center"></el-table-column>
+          <el-table-column prop="uploadtime" label="上传时间" align="center" ></el-table-column>
+          <el-table-column prop="work" label="操作" align="center" >
             <template slot-scope="scope">
-              <el-button style="color:#409EFF" @click="down(scope.row)">下载</el-button>
-              <el-button style="color:#409EFF" @click="dele(scope.row)">删除</el-button>
+              <el-button style="color:#409EFF" size="small" @click="down(scope.row)">下载</el-button>
+              <el-button style="color:#409EFF" size="small" @click="dele(scope.row)">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -213,6 +213,7 @@ export default {
 
 .datasetTable {
   /* display: inline; */
+  width: 1050px;
   margin-left: 10px;
 }
 </style>

@@ -11,11 +11,11 @@
           style="font-size:18px;border-color: #009FCC"
           :row-style="{height:'80px'}"
         >
-          <el-table-column prop="id" align="center" label="序号" width="100px"></el-table-column>
-          <el-table-column prop="dataset" label="算法名称" align="center" width="280px"></el-table-column>
-          <el-table-column prop="algo" label="算法名称" align="center" width="280px"></el-table-column>
-          <el-table-column prop="time" label="预测时间" align="center" width="280px"></el-table-column>
-          <el-table-column prop="work" label="操作" align="center" width="280px">
+          <el-table-column prop="id" align="center" label="序号" width="50px" ></el-table-column>
+          <el-table-column prop="dataset" label="算法名称" align="center"></el-table-column>
+          <el-table-column prop="algo" label="算法名称" align="center" ></el-table-column>
+          <el-table-column prop="time" label="预测时间" align="center"></el-table-column>
+          <el-table-column prop="work" label="操作" align="center" >
             <template slot-scope="scope">
               <el-button style="color:#409EFF" @click="check(scope)">查看结果</el-button>
             </template>
@@ -97,6 +97,7 @@ export default {
   background-color: #009fcc;
 }
 .datasetTable {
+  width: 1050px;
   /* display: inline; */
 }
 </style>

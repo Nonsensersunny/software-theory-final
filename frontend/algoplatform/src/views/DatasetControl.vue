@@ -10,14 +10,14 @@
         <el-table
           :data="tableData"
           border
-          style="font-size:18px;border-color:#009FCC"
+          style="font-size:18px;border-color:#009FCC;width: 90%;"
           :row-style="{height:'80px'}"
         >
-          <el-table-column type="index" align="center" label="序号" width="100px"></el-table-column>
-          <el-table-column prop="name" label="数据集名称" align="center" width="320px"></el-table-column>
-          <el-table-column prop="type" label="类型" align="center" width="180px"></el-table-column>
-          <el-table-column prop="uploadtime" label="上传时间" align="center" width="280px"></el-table-column>
-          <el-table-column prop="work" label="操作" align="center" width="280px">
+          <el-table-column type="index" align="center" label="序号" ></el-table-column>
+          <el-table-column prop="name" label="数据集名称" align="center" ></el-table-column>
+          <el-table-column prop="type" label="类型" align="center" ></el-table-column>
+          <el-table-column prop="uploadtime" label="上传时间" align="center"></el-table-column>
+          <el-table-column prop="work" label="操作" align="center" >
             <template slot-scope="scope">
               <el-button style="color:#409EFF" @click="check(scope.row)">查看</el-button>
               <el-button style="color:#409EFF" @click="dele(scope.row)">删除</el-button>
@@ -219,6 +219,7 @@ export default {
 }
 
 .datasetTable {
+  width: 1050px;
   /* display: inline; */
   margin: 10px;
 }

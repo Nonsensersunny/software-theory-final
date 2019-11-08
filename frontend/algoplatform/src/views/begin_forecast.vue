@@ -7,8 +7,8 @@
       <el-step title="分析" icon="el-icon-upload" description="结果请在“预测结果”中查看"></el-step>
     </el-steps>
     <center>
-      <el-button type="primary" style @click="next">继续</el-button>
-      <el-button v-if="active ==1 || active ==2" @click="front">回退</el-button>
+      <el-button type="primary" size="small" @click="next">继续</el-button>
+      <el-button v-if="active ==1 || active ==2" size="small" @click="front">回退</el-button>
       <template>
         <transition name="el-zoom-in-top">
           <div v-if="active ==0" class="group">

@@ -1,13 +1,15 @@
 <template>
   <div id="app">
     <div class="head">
-      <div class="block">
-        <el-carousel height="150px">
-          <el-carousel-item v-for="item in 4" :key="item">
+
+      <!-- <div class="block">
+        
+        <el-carousel height="200px" >
+          <el-carousel-item v-for="item in 4" :key="item" >
             <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;疾 病 分 析 与 预 测 平 台</h1>
           </el-carousel-item>
         </el-carousel>
-      </div>
+      </div> -->
     </div>
     <div id="nav">
       <el-col :span="18">
@@ -48,7 +50,7 @@
               <router-link to='/'>预测结果</router-link>
 
           </el-menu-item>-->
-          <el-menu-item index="4" disabled>
+          <el-menu-item index="4" @click="changeItem">
             <i class="el-icon-notebook-2"></i>
             <span slot="title">可视化</span>
           </el-menu-item>
@@ -69,12 +71,21 @@ import DatasetControl from "./DatasetControl.vue";
 import AlogrithmControl from "./AlogrithmControl.vue";
 import check_forecast from "./check_forecast.vue";
 import begin_forecast from "./begin_forecast.vue";
+import visualization from './visualization.vue';
+// import 'echarts/lib/chart/'
+// 提示
+// import 'echarts/lib/component/tooltip'
+    // 图例
+// import 'echarts/lib/component/legend'
+    // 标题
+// import 'echarts/lib/component/title'
 export default {
   components: {
     DatasetControl,
     AlogrithmControl,
     check_forecast,
-    begin_forecast
+    begin_forecast,
+    visualization
   },
   data() {
     return {
@@ -88,6 +99,7 @@ export default {
       else if (params.index == "2") this.comp = "AlogrithmControl";
       else if (params.index == "3-1") this.comp = "begin_forecast";
       else if (params.index == "3-2") this.comp = "check_forecast";
+      else if (params.index == "4") this.comp = "visualization";
       // console.log(params)
       // this.comp = AlogrithmControl
     },
@@ -105,15 +117,18 @@ span {
 }
 
 .head {
-  height: 150px;
+  height: 165px;
   text-align: center;
   padding-top: 30px;
   font-size: 28px;
   color: #fff;
   font-family: '微软雅黑';
   width: 100%;
+  background-image: url(../assets/slide.png) ;
+  /*background-size: 100%;*/
+  background-repeat: none;
 }
-
+/*
 .el-carousel__item h3 {
   color: #475669;
   font-size: 14px;
@@ -123,12 +138,14 @@ span {
 }
 
 .el-carousel__item:nth-child(2n) {
+  
+
   background-color: #99a9bf;
 }
 
 .el-carousel__item:nth-child(2n+1) {
   background-color: #d3dce6;
-}
+}*/
 
 #nav {
   width: 200px;
