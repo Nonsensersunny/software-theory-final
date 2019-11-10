@@ -21,6 +21,12 @@ func (a *AlgorithmService) CreateAlgorithm(algorithm *model.Algorithm) error {
 
 func (a *AlgorithmService) GetAlgorithmById(id string) (*model.Algorithm, error) {
 	algorithm := &model.Algorithm{}
-	err := a.client.DB.Table("algorithms").Where("id = ?", id).Error
+	err := a.client.DB.Table("algorithms").Where("id = ?", id).Scan(algorithm).Error
 	return algorithm, err
+}
+
+func (a *AlgorithmService) GetAllAlgorithms() ([]*model.Algorithm, error) {
+	var algos []*model.Algorithm
+	err := a.client.DB.Table("algorithms").Find(&algos).Error
+	return algos, err
 }

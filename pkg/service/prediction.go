@@ -25,9 +25,15 @@ func (p *PredictionService) GetPredictionById(id string) (*model.Prediction, err
 	return prediction, err
 }
 
-func (p *PredictionService) GetPredictionsByDid(did string) ([]*model.Prediction, error) {
+func (p *PredictionService) GetPredictionsByTrainId(tid string) ([]*model.Prediction, error) {
 	var predictions []*model.Prediction
-	err := p.client.DB.Table("predictions").Where("did = ?", did).Scan(&predictions).Error
+	err := p.client.DB.Table("predictions").Where("train_id = ?", tid).Scan(&predictions).Error
+	return predictions, err
+}
+
+func (p *PredictionService) GetPredictionsByTestId(tid string) ([]*model.Prediction, error) {
+	var predictions []*model.Prediction
+	err := p.client.DB.Table("predictions").Where("test_id = ?", tid).Scan(&predictions).Error
 	return predictions, err
 }
 

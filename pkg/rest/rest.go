@@ -19,5 +19,15 @@ func REST(engine *gin.Engine) {
 		datasetRoute.GET("/", v1.GetDataSets)
 	}
 
+	algorithmRoute := engine.Group("/algorithm")
+	{
+		algorithmRoute.PUT("/", v1.CreateAlgorithm)
+		algorithmRoute.GET("/", v1.GetAlgorithms)
+	}
 
+	predictionRoute := engine.Group("/prediction")
+	{
+		predictionRoute.POST("/", v1.CreatePrediction)
+		predictionRoute.GET("/", v1.GetPredictions)
+	}
 }

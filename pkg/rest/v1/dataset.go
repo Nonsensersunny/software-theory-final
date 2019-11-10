@@ -20,6 +20,7 @@ func UploadDataset(c *gin.Context) {
 	}
 
 	desc := c.Request.PostFormValue("description")
+	typ := c.Request.PostFormValue("type")
 
 	file, header, err := c.Request.FormFile("upload")
 	if err != nil {
@@ -44,6 +45,7 @@ func UploadDataset(c *gin.Context) {
 	if err := service.CreateDataset(&model.Dataset{
 		Uid:         uid,
 		Path:        filename,
+		Type:        typ,
 		Description: desc,
 	}); err != nil {
 		c.JSON(http.StatusOK, utils.ErrorHelper(err, utils.CREATE_DATASET_FAIL))
@@ -64,7 +66,6 @@ func GetDatasetById(id string, c *gin.Context) {
 }
 
 func GetDatasetsByUid(uid string, c *gin.Context) {
-
 
 	service := service.NewDatasetService(config.GetMySQLClient())
 	dataSets, err := service.GetDatasetsByUid(uid)
