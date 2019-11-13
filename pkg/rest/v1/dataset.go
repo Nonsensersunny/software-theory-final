@@ -21,6 +21,7 @@ func UploadDataset(c *gin.Context) {
 
 	desc := c.Request.PostFormValue("description")
 	typ := c.Request.PostFormValue("type")
+	name := c.Request.PostFormValue("name")
 
 	file, header, err := c.Request.FormFile("upload")
 	if err != nil {
@@ -47,6 +48,7 @@ func UploadDataset(c *gin.Context) {
 		Path:        filename,
 		Type:        typ,
 		Description: desc,
+		Name:        name,
 	}); err != nil {
 		c.JSON(http.StatusOK, utils.ErrorHelper(err, utils.CREATE_DATASET_FAIL))
 		return

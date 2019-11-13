@@ -8,12 +8,48 @@ import (
 	"software-theory-final/internal/config"
 	"software-theory-final/internal/log"
 	"software-theory-final/internal/utils"
+	"software-theory-final/pkg/modules/model"
 	"software-theory-final/pkg/rest"
+	"software-theory-final/pkg/service"
 	"strconv"
 )
 
 type App struct {
 	serverConf        *config.ServerConf
+}
+
+func (app *App) init_algos() {
+	algorithmService := service.NewAlgorithmService(config.GetMySQLClient())
+	algorithmService.CreateAlgorithm(&model.Algorithm{
+		Name: "Bayes",
+		Path: "data/Bayes.py",
+		Description: "贝叶斯",
+	})
+	algorithmService.CreateAlgorithm(&model.Algorithm{
+		Name: "kNN",
+		Path: "data/kNN.py",
+		Description: "k临近算法",
+	})
+	algorithmService.CreateAlgorithm(&model.Algorithm{
+		Name: "Logistic Regression",
+		Path: "data/LogisticRegression.py",
+		Description: "Logistic回归",
+	})
+	algorithmService.CreateAlgorithm(&model.Algorithm{
+		Name: "Random Forest",
+		Path: "data/RandomForest.py",
+		Description: "随机森林",
+	})
+	algorithmService.CreateAlgorithm(&model.Algorithm{
+		Name: "SGDC",
+		Path: "data/SGDC.py",
+		Description: "随机梯度下降",
+	})
+	algorithmService.CreateAlgorithm(&model.Algorithm{
+		Name: "SVM",
+		Path: "data/SVM.py",
+		Description: "支持向量机",
+	})
 }
 
 func Init() (app App) {
@@ -40,6 +76,7 @@ func Init() (app App) {
 
 func main() {
 	app := Init()
+	app.init_algos()
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()
 

@@ -124,6 +124,8 @@ def main(train_path, test_path, output_path):
     with open(output_path, 'w') as f:
         f.write(json.dumps(result))
     print(f'{output_path}@{accu}')
+
+
 if __name__ == "__main__":
     train_path = sys.argv[1]
     test_path = sys.argv[2]

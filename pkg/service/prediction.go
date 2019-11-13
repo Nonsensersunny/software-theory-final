@@ -1,8 +1,10 @@
 package service
 
 import (
+	"io/ioutil"
 	"software-theory-final/pkg/modules/model"
 	"software-theory-final/pkg/modules/mysql"
+	"os"
 )
 
 type PredictionService struct {
@@ -22,6 +24,15 @@ func (p *PredictionService) CreatePrediction(prediction *model.Prediction) error
 func (p *PredictionService) GetPredictionById(id string) (*model.Prediction, error) {
 	prediction := &model.Prediction{}
 	err := p.client.DB.Table("predictions").Where("id = ?", id).Scan(prediction).Error
+	f, err := os.Open(prediction.Path)
+	if err != nil {
+		return nil, err
+	}
+	btCnt, err := ioutil.ReadAll(f)
+	if err != nil {
+		return nil, err
+	}
+	prediction.Result = string(btCnt)
 	return prediction, err
 }
 

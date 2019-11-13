@@ -1,23 +1,32 @@
-﻿#!/usr/bin/env python
+#!/usr/bin/env python
 # coding: utf-8
 
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import GridSearchCV, cross_val_score, train_test_split
+from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import make_scorer, accuracy_score
 import pandas as pd
+from sklearn.model_selection import train_test_split
 import warnings
+warnings.filterwarnings("ignore")
+import json
 import sys
 import uuid
-import json
-warnings.filterwarnings("ignore")
+
 
 def main(train_path, test_path, output_path):
+    # 定义路径参数
     res = {}
-    data = pd.read_csv(train_path, header=None)
+    filename = train_path
+    filenamepre = test_path
+    # 读取数据集
+    data = pd.read_csv(filename, header=None, encoding='gbk')
+
     col=data.columns.size
     features_remain = data.columns[0:col-1]
     # print(features_remain)
     result = data.columns[(col-1):col]
+
+
     # 抽取30%的数据作为测试集，其余作为训练集
     train, test = train_test_split(data, test_size = 0.3)# in this our main data is splitted into train and test
     # 抽取特征选择的数值作为训练和测试数据
@@ -30,13 +39,13 @@ def main(train_path, test_path, output_path):
     clf = RandomForestClassifier()
 
     #可以通过定义树的各种参数，限制树的大小，防止出现过拟合现象哦，也可以通过剪枝来限制，但sklearn中的决策树分类器目前不支持剪枝
-    parameters = {'n_estimators': [4, 6, 9], 
-                'max_features': ['log2', 'sqrt','auto'], 
-                'criterion': ['entropy', 'gini'],        #分类标准用熵，基尼系数
-                'max_depth': [2, 3, 5, 10], 
-                'min_samples_split': [2, 3, 5],
-                'min_samples_leaf': [1,5,8]
-                }
+    parameters = {'n_estimators': [4, 6, 9],
+                  'max_features': ['log2', 'sqrt','auto'],
+                  'criterion': ['entropy', 'gini'],        #分类标准用熵，基尼系数
+                  'max_depth': [2, 3, 5, 10],
+                  'min_samples_split': [2, 3, 5],
+                  'min_samples_leaf': [1,5,8]
+                 }
 
     #以下是用于比较参数好坏的评分，使用'make_scorer'将'accuracy_score'转换为评分函数
     acc_scorer = make_scorer(accuracy_score)
@@ -53,22 +62,25 @@ def main(train_path, test_path, output_path):
     clf.fit(X_train,y_train)
 
     predictions = clf.predict(X_test)
-    print(accuracy_score(y_test,predictions))
+    accu = accuracy_score(y_test,predictions)
     #如果把上面多执行几次，会发现这里的执行的结果都会有所不同，取决于用了parameter的哪些参数
-
     #预测
     testset = pd.read_csv(test_path, header=None)
-    #t = list(data.columns[0:8])
-    #t_x = test[t]
-    #test = testset.columns[0:10]
-    #model.predict(ch)
-    #model.fit(testset)
-    print(testset.head(None))
-    clf.predict(testset)
+    #print(testset.head(None))
+    lr_predict = clf.predict(testset)
+    testset = testset.values.tolist()
+    lr_predict =list(clf.predict(testset))
 
+    for i in range(len(lr_predict)):
+        testset[i].append(float(lr_predict[i]))
+
+    # 返回结果
+    res['output'] = testset
+    res['accuracy'] = accu
     with open(output_path, 'w') as f:
         f.write(json.dumps(res))
     print(f'{output_path}@{accu}')
+
 
 if __name__ == "__main__":
     train_path = sys.argv[1]
