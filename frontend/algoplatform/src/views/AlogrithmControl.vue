@@ -1,10 +1,10 @@
 <template>
   <div class="algoControl">
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+  
     <center>
       <div class="upload">
-        <el-button size="small" type="primary" @click="dialogVisible = true">上传算法</el-button>
+        <!-- <el-button size="small" type="primary" @click="dialogVisible = true">上传算法</el-button> -->
+        <el-button size="small" type="primary" @click="NotAllow">上传算法</el-button>
       </div>
       <div class="datasetTable">
         <el-table
@@ -15,109 +15,42 @@
         >
           <el-table-column type="index" align="center" label="序号" ></el-table-column>
           <el-table-column prop="name" label="算法名称" align="center" ></el-table-column>
-          <el-table-column prop="info" label="描述" align="center"></el-table-column>
-          <el-table-column prop="uploadtime" label="上传时间" align="center" ></el-table-column>
-          <el-table-column prop="work" label="操作" align="center" >
-            <template slot-scope="scope">
-              <el-button style="color:#409EFF" size="small" @click="down(scope.row)">下载</el-button>
-              <el-button style="color:#409EFF" size="small" @click="dele(scope.row)">删除</el-button>
-            </template>
-          </el-table-column>
+          <el-table-column prop="description" label="描述" align="center"></el-table-column>
+          <el-table-column prop="time" label="上传时间" align="center" ></el-table-column>
+       
         </el-table>
       </div>
 
-      <el-dialog title="上传数据集" :visible.sync="dialogVisible" width="30%">
-        <!-- <el-upload
-          accept=".py"
-          class="upload-demo"
-          action="/"
-          :show-file-list="false"
-          :on-success="upload1"
-          :before-upload="beforeupload"
-          :http-request="uploadSuccess"
-        >
-          <el-button class="btn_upload" type="primary" style="float:left">选择文件</el-button>
-          <div
-            slot="tip"
-            style="display:inline-block;margin-bottom:20px;margin-left:10px;"
-            class="el-upload__tip"
-          >只能上传python文件</div>
-        </el-upload>-->
-        <div style="width:590px;">
-          <!-- <span>选择文件</span> -->
-          <el-input type="file" v-model="form.src" style="width:85%;margin-bottom:10px"></el-input>
-        </div>
-        <el-form style="width:590px;">
-          <el-form-item :model="form">
+      <el-dialog title="上传数据集" :visible.sync="dialogVisible" width="600px">
+        <el-form style="width:590px;" size="small">
+          <el-form-item label="上传文件"
+              :label-width="formLabelWidth">
+             <el-input type="file" id="uploadFile" name="uploadFile" v-model="form.path" style="width:80%;margin-bottom:10px"></el-input>
+          </el-form-item>
             <el-form-item
               label="算法名称"
-              :label-width="formLabelWidth"
-              style="width:100%;margin-bottom:10px"
-            >
-              <el-input v-model="form.fileName"></el-input>
+              :label-width="formLabelWidth" >
+              <el-input v-model="form.name" style="width:80%;margin-bottom:10px"></el-input>
             </el-form-item>
-            <el-form-item
-              label="算法文件"
-              :label-width="formLabelWidth"
-              style="width:100%;margin-bottom:10px"
-            >
-              <el-input v-model="form.src" disabled></el-input>
-            </el-form-item>
-            <!-- <el-form-item label="类型" :label-width="formLabelWidth">
-          <el-select v-model="form.fileType" placeholder="请选择" style="width:100%;margin-bottom:10px">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            ></el-option>
-          </el-select>
-            </el-form-item>-->
+            
             <el-form-item
               label="算法描述"
-              :label-width="formLabelWidth"
-              style="width:100%;margin-bottom:10px"
-            >
+              :label-width="formLabelWidth">
               <el-input
                 type="textarea"
-                v-model="form.fileInfo"
-                :rows="3"
+                v-model="form.description"
+                :rows="3" style="width:80%;margin-bottom:10px"
                 placeholder="请输入对算法的描述，如算法的特点、适用情况，"
               ></el-input>
             </el-form-item>
-          </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogVisible = false">取 消</el-button>
+          <el-form-item>
+            <el-button @click="dialogVisible = false">取 消</el-button>
           <el-button type="primary" @click="uploadDataset">确 定</el-button>
-        </div>
-      </el-dialog>
-      <el-dialog :title="show_algo.fileName" :visible.sync="data_table" width="600px">
-        <el-form :ref="show_algo">
-          <el-form-item label="名称" :label-width="formLabelWidth">
-            <el-input v-model="show_algo.fileName" disabled style="width:80%;margin-bottom:10px"></el-input>
           </el-form-item>
-          <el-form-item label="路径" :label-width="formLabelWidth">
-            <el-input v-model="show_algo.filePath" disabled style="width:80%;margin-bottom:10px"></el-input>
-          </el-form-item>
-          <!-- <el-form-item label="类型" :label-width="formLabelWidth">
-            <el-input v-model="show_dataset.fileType" disabled style="width:80%;margin-bottom:10px"></el-input>
-          </el-form-item>-->
-          <el-form-item label="上传时间" :label-width="formLabelWidth">
-            <el-input v-model="show_algo.fileTime" disabled style="width:80%;margin-bottom:10px"></el-input>
-          </el-form-item>
-          <el-form-item label="描述" :label-width="formLabelWidth">
-            <el-input
-              type="textarea"
-              v-model="show_algo.fileInfo"
-              disabled
-              :rows="3"
-              style="width:80%;margin-bottom:10px"
-            ></el-input>
-          </el-form-item>
-          <!-- </el-form> -->
         </el-form>
+      
       </el-dialog>
+     
     </center>
   </div>
 </template>
@@ -130,41 +63,42 @@ export default {
       fileList: [],
       dialogVisible: false,
       data_table:false,
-      formLabelWidth: "120px",
+      formLabelWidth: "90px",
       form: {
-        src: "",
-        fileName: "", //数据集名字
-        fileInfo: "", //描述
-        fileTime: "", //上传时间
+        name: "", //数据集名字
+        description: "", //描述
+        time: "",//上传时间
+        path:'', 
       },
-      show_algo: {
-        fileName: "1", //数据集名字
-        filePath: "",
-        fileInfo: "", //描述
-        fileTime: "" //上传时间
-      },
-
+      fileObj:{},
     
-      tableData: [
-        {
-          src: "svm.py",
-          name: "SVM向量机算法",
-          info: "适用于.....",
-          uploadtime: "2019-10-30 下午06：30"
-        },
-        {
-          src: "bayes.py",
-          name: "朴素贝叶斯算法",
-          info: "适用于.....",
-          uploadtime: "2019-10-30 下午06：28"
-        }
-      ]
+      tableData: []
     };
   },
+  created(){
+    this.init();
+  },
   methods: {
-    
-    down(params) {//测试能否执行Python文件
-      
+    init(params) {//这里能获取所有算法信息
+      this.$axios.get(this.$axios.defaults.baseURL+'/algorithm')
+      .then(response=>{
+        console.log(response)
+        var data={};
+        this.tableData = []
+        var count = response.data.data.algorithms.length;
+        for(var i=0;i<count;i++)
+        {
+          var item = response.data.data.algorithms[i];
+          data = {};
+          data.name = item.name;
+          data.description = item.description;
+          data.time = item.time;
+          this.tableData.push(data)
+        }
+      })
+    },
+    NotAllow(){
+      this.$message.error("抱歉，您没有权限上传算法文件！")
     },
     dele(params) {
       var name = params.name;
@@ -176,17 +110,35 @@ export default {
     },
     uploadDataset(){
       var myDate = new Date();
-      this.form.fileTime = myDate.toLocaleString();
-      
-      this.$message.success("算法文件 " + this.form.fileName + " 上传成功!");
-      this.dialogVisible = false;
-      this.tableData.push({
-        name: this.form.fileName,
-        type: this.form.fileType,
-        uploadtime: this.form.fileTime,
-        info: this.form.fileInfo
-      // this.tableData
-      })
+      this.form.time = myDate.toLocaleString();
+      this.fileObj = document.getElementById("uploadFile").files[0];
+      console.log(this.fileObj)
+      var item={};
+      item.upload = this.fileObj;
+      item.name = this.form.name;
+      item.description = this.form.description;
+      if(this.form.name !='' && this.form.description !='' && this.form.path != '')
+      {
+          this.$axios.put(this.$axios.defaults.baseURL+'/algorithm',JSON.stringify(item))
+        .then(response=>{
+          console.log(response)
+          if(response.data.data.status == 'success')
+          {
+            this.tableData.push(this.form)
+            this.$message.success("算法文件 " + this.form.name + " 上传成功!");
+          }
+          else
+          {
+            this.$message.error("上传失败" +response.data.error);
+          }
+          // this,tableData.push(response.data)
+        })
+        this.dialogVisible = false;
+      }
+      else
+      {
+        this.$message.error('请填写完整信息！')
+      }
   }
   }
 };
@@ -209,11 +161,17 @@ export default {
   font-family: "微软雅黑";
   font-size: 18px;
   display: inline-block;
+  
+}
+.datasetTable::-webkit-scrollbar{
+  display: none;
 }
 
 .datasetTable {
   /* display: inline; */
   width: 1050px;
   margin-left: 10px;
+  max-height: 650px;
+  overflow-y: scroll;
 }
 </style>

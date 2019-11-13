@@ -13,12 +13,12 @@
         <transition name="el-zoom-in-top">
           <div v-if="active ==0" class="group">
             <span>预测集：</span>
-            <el-select v-model="forecast_dataset" placeholder="请选择">
+            <el-select v-model="this_forecast.test" placeholder="请选择">
               <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                v-for="item in yuce_options"
+                :key="item.id"
+                :label="item.description"
+                :value="item.id"
               ></el-option>
             </el-select>
           </div>
@@ -26,12 +26,12 @@
         <transition name="el-zoom-in-top">
           <div v-if="active ==1" class="group">
             <span>训练集：</span>
-            <el-select v-model="xunlian_dataset" placeholder="请选择">
+            <el-select v-model="this_forecast.train" placeholder="请选择">
               <el-option
                 v-for="item in xunlian_options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                :key="item.id"
+                :label="item.description"
+                :value="item.id"
               ></el-option>
             </el-select>
           </div>
@@ -39,12 +39,12 @@
         <transition name="el-zoom-in-top">
           <div v-if="active ==2" class="group">
             <span>算法：</span>
-            <el-select v-model="algo" placeholder="请选择">
+            <el-select v-model="this_forecast.algorithm" placeholder="请选择">
               <el-option
                 v-for="item in algo_options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id"
               ></el-option>
             </el-select>
           </div>
@@ -59,40 +59,49 @@ export default {
     return {
       active: 0,
       index: [0, 1, 2, 3],
-      forecast_dataset: "",
-      xunlian_dataset: "",
-      algo: "",
-      options: [
-        { label: "1号病人细胞核特征.csv", value: "1号病人细胞核特征.csv" },
-        { label: "2号病人细胞核特征.csv", value: "2号病人细胞核特征.csv" },
-        { label: "3号病人细胞核特征.csv", value: "3号病人细胞核特征.csv" }
-      ],
-      xunlian_options: [
-        {
-          label: "乳腺癌细胞核特征训练集.csv",
-          value: "乳腺癌细胞核特征训练集.csv"
-        },
-        {
-          label: "糖尿病血液指标训练集.csv",
-          value: "糖尿病血液指标训练集.csv"
-        },
-        { label: "心脏病心脏指标训练集.csv", value: "心脏病心脏指标训练集.csv" }
-      ],
-      algo_options: [
-        { label: "朴素贝叶斯算法", value: "朴素贝叶斯算法" },
-        { label: "支持向量机SVM算法", value: "支持向量机SVM算法" },
-        { label: "Logistic逻辑回归", value: "Logistic逻辑回归" }
-      ],
+      yuce_options: [],
+      xunlian_options: [],
+      algo_options: [],
       this_forecast: {
-        dataset: { name: "", filesrc: "" },
-        xunlian_dataset: { name: "", filesrc: "" },
-        algo: { name: "", filesrc: "" },
-        time_forcast: ""
+        algorithm:'',
+        train:'',
+        test:'' 
       }
     };
   },
-
+  created(){
+    this.init()
+  },
   methods: {
+    init(){
+      this.$axios.get(this.$axios.defaults.baseURL+'/dataset')
+      .then(response=>{
+        // console.log(response)
+        var len=response.data.data.datasets.length;
+        var item = {};
+        this.xunlian_options = [];
+        this.yuce_options = [];
+        for(var i=0;i<len;i++)
+        {
+          item = response.data.data.datasets[i];
+          if(item.type ==="train")
+            this.xunlian_options.push(item)
+          else
+            this.yuce_options.push(item)
+        }
+      });
+      this.$axios.get(this.$axios.defaults.baseURL+'/algorithm')
+      .then(response=>{
+        // console.log(response)
+        var data={};
+        var count = response.data.data.algorithms.length;
+        for(var i=0;i<count;i++)
+        {
+          var item = response.data.data.algorithms[i];
+          this.algo_options.push(item)
+        }
+      })
+    },
     front() {
       this.active--;
     },
@@ -103,8 +112,16 @@ export default {
       }
     },
     beginForecast() {
-      this.$emit("change");
-      // this.$router.push('/forecast/check')
+      console.log(this.this_forecast)
+      // this.$axios.get(this.$axios.defaults.baseURL+'/prediction')
+      // .then(response=>{
+      //   console.log(response)
+      // })
+      this.$axios.post(this.$axios.defaults.baseURL+'/prediction',JSON.stringify(this.this_forecast))
+      .then(response=>{
+        console.log(response)
+      this.$router.push('/forecast/check')
+    })
     }
   }
 };
