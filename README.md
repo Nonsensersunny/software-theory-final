@@ -53,6 +53,8 @@
 ### 2. 后端REST规范
 
 - 后端接口定义与测试均上传至 [SwaggerHub](https://app.swaggerhub.com/apis/B755/software-theory_final/1.0.0#/User)
+<<<<<<< HEAD
+=======
 
 ### 3. 系统开发流程
 
@@ -217,3 +219,4 @@ services:
       - /data/config:/app/config
 ```
 
+>>>>>>> upstream/master
