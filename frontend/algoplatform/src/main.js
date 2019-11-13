@@ -20,7 +20,9 @@ axios.defaults.headers.put['Access-Control-Allow-Origin']=''
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 axios.defaults.headers.get['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 axios.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-axios.defaults.baseURL = "http://106.13.90.235:10000";
+// axios.defaults.baseURL = "http://106.13.90.235:10000";
+axios.defaults.baseURL = "http://10.108.14.144:8080";
+
 axios.defaults.withCredentials = true;
 // Vue.http.interceptors.push(function(request,next){
 //   request.credentials = true;

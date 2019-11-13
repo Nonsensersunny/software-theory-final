@@ -138,6 +138,7 @@ export default {
 
       this.$axios.get(this.$axios.defaults.baseURL+'/dataset')
       .then(response=>{
+        console.log("dateset get")
         console.log(response)
         var len=response.data.data.datasets.length;
         this.tableData = [];
@@ -180,6 +181,7 @@ export default {
       // console.log(this.fileObj)
       //请求后端
       var formdata = new FormData();
+      formdata.append('name',this.form.name)
       formdata.append('upload',this.fileObj)
       formdata.append('description',this.form.description)
       formdata.append('time',this.form.time)
@@ -189,7 +191,8 @@ export default {
       {
         this.$axios.put(this.$axios.defaults.baseURL+'/dataset',formdata)
         .then(response=>{
-          // console.log(response)
+          console.log("dataset put")
+          console.log(response)
           if (this.form.type === "test")
             this.$message.success("预测集 " + this.form.name + " 上传成功!");
           else if (this.form.type === "train")

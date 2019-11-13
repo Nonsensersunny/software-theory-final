@@ -82,6 +82,7 @@ export default {
     init(params) {//这里能获取所有算法信息
       this.$axios.get(this.$axios.defaults.baseURL+'/algorithm')
       .then(response=>{
+        console.log("algo get")
         console.log(response)
         var data={};
         this.tableData = []

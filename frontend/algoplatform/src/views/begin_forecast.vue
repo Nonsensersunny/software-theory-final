@@ -17,7 +17,7 @@
               <el-option
                 v-for="item in yuce_options"
                 :key="item.id"
-                :label="item.description"
+                :label="item.name"
                 :value="item.id"
               ></el-option>
             </el-select>
@@ -30,7 +30,7 @@
               <el-option
                 v-for="item in xunlian_options"
                 :key="item.id"
-                :label="item.description"
+                :label="item.name"
                 :value="item.id"
               ></el-option>
             </el-select>
@@ -92,7 +92,7 @@ export default {
       });
       this.$axios.get(this.$axios.defaults.baseURL+'/algorithm')
       .then(response=>{
-        console.log(response)
+        // console.log(response)
         var data={};
         var count = response.data.data.algorithms.length;
         for(var i=0;i<count;i++)
@@ -119,6 +119,7 @@ export default {
       // })
       this.$axios.post(this.$axios.defaults.baseURL+'/prediction',JSON.stringify(this.this_forecast))
       .then(response=>{
+        console.log("prediction post")
         console.log(response)
         this.$emit('change')
       // this.$router.push('/forecast/check')

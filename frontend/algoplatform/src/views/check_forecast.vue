@@ -74,9 +74,9 @@ export default {
     init() {
       // this.changeForm();
       // this.tableData.push(this.data)
-      this.$axios
-        .get(this.$axios.defaults.baseURL + "/prediction")
+      this.$axios.get(this.$axios.defaults.baseURL + "/prediction")
         .then(response => {
+          console.log("prediction get")
           console.log(response);
           var count = response.data.data.prediction.length;
           var item = {};
@@ -111,6 +111,7 @@ export default {
         this.data.output.push(item);
       }
       this.tableData.push(this.data);
+      console.log("title")
       console.log(this.colTitle);
       console.log(this.tableData);
     },
