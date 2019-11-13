@@ -79,7 +79,7 @@ export default {
           console.log("prediction get")
           console.log(response);
           var count = response.data.data.prediction.length;
-          var item = {};
+          // var item = {};
           for (var i = 0; i < count; i++) {
             //挨个对后端传过来的数据格式化
             // .......处理之后赋值给item

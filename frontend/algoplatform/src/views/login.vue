@@ -50,24 +50,37 @@ export default {
       this.$axios.put(this.$axios.defaults.baseURL+'/user/',JSON.stringify(this.ruleForm))
       .then(response=>{
         console.log(response)
-        var str = "账号： "+this.ruleForm.mail+" 注册成功！请登录！" ;
-        this.$message({
-          message:str,
-          type:'success'
-        })
+        if(response.data.data.status === "success")
+        {
+          var str = "账号： "+this.ruleForm.mail+" 注册成功！请登录！" ;
+          this.$message({
+            message:str,
+            type:'success'
+          })
+        }
+        else{
+          var str1 = "注册失败！请重试！" ;
+          this.$message({
+            message:str1,
+            type:'success'
+          })
+        }
       })
     },
     login:function(){
-     this.$axios.post(this.$axios.defaults.baseURL+'/user/',JSON.stringify(this.ruleForm))
-      .then(response=>{
-        console.log(response)
-        this.$router.push('/main/')
-        // console.log(this.$cookies.set(this.ruleForm.mail))
-        // console.log(Cookies.get())
-      });
+     this.$axios.post(this.$axios.defaults.baseURL+'/user/',JSON.stringify(this.ruleForm));
+      // .then(response=>{
+      //   console.log(response)
+      //   if(response.data.data.status != "success")
+      //   // console.log(this.$cookies.set(this.ruleForm.mail))
+      //   // console.log(Cookies.get())
+      // });
       this.$axios.get(this.$axios.defaults.baseURL+'/user/',JSON.stringify(this.ruleForm))
       .then(response=>{
         console.log(response)
+        if(response.data.data.login ===1)
+          this.$router.push('/main/')
+
       })
     }
   }

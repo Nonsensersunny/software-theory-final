@@ -5,6 +5,7 @@
     <center>
       <div class="upload">
         <el-button size="small" type="primary" @click="dialogVisible = true">上传数据集</el-button>
+        <el-tip
       </div>
       <div class="datasetTable">
         <el-table
@@ -28,6 +29,12 @@
 
       <el-dialog title="上传数据集" :visible.sync="dialogVisible" width="600px">
         <el-form style="width:590px;" :model='form' size="small">
+          <el-form-item style="margin:0 0 0 25px;text-align: left;color: #0096ff">
+            <p>文件要求：</p>
+            <p>1.请上传csv格式文件；</p>
+            <p>2.请去掉表头；</p>
+            <p>3.请保证训练集的最后一列为诊断结果</p>
+          </el-form-item>
           <el-form-item label="文件" :label-width="formLabelWidth">
             <el-input type="file" id="uploadFile" name="uploadFile" v-model="form.path" style="width:80%;margin-bottom:10px"></el-input>
           </el-form-item>
