@@ -92,7 +92,7 @@ export default {
       });
       this.$axios.get(this.$axios.defaults.baseURL+'/algorithm')
       .then(response=>{
-        // console.log(response)
+        console.log(response)
         var data={};
         var count = response.data.data.algorithms.length;
         for(var i=0;i<count;i++)
@@ -120,7 +120,8 @@ export default {
       this.$axios.post(this.$axios.defaults.baseURL+'/prediction',JSON.stringify(this.this_forecast))
       .then(response=>{
         console.log(response)
-      this.$router.push('/forecast/check')
+        this.$emit('change')
+      // this.$router.push('/forecast/check')
     })
     }
   }

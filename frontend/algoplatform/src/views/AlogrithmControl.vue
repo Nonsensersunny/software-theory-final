@@ -67,7 +67,7 @@ export default {
       form: {
         name: "", //数据集名字
         description: "", //描述
-        time: "",//上传时间
+        time: '',//上传时间
         path:'', 
       },
       fileObj:{},
@@ -92,7 +92,10 @@ export default {
           data = {};
           data.name = item.name;
           data.description = item.description;
-          data.time = item.time;
+          var datetime = new Date('2019/11/5');
+          // console.log(datetime)
+          data.time = datetime.toLocaleString();
+          // console.log(data.time)
           this.tableData.push(data)
         }
       })
