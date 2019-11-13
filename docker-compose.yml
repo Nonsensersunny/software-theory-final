@@ -1,11 +1,11 @@
 version: "3.3"
 services:
-#  web:
-#    build: frontend/
-#    ports:
-#      - "8901:80"
-#    links:
-#      - server
+  web:
+    build: frontend/
+    ports:
+      - "8910:80"
+    links:
+      - server
 
   redis:
     image: redis:latest
