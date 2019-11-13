@@ -7,7 +7,7 @@
 
 #### 1.1 用例图
 
-![Usecase Diagram](./docs/images/Usecase Diagram.png)
+![Usecase Diagram](https://github.com/Nonsensersunny/software-theory-final/blob/master/docs/images/Usecase%20Diagram.png)
 
 <center>图1. 用例图</center>
 #### 1.2 数据字典
@@ -124,7 +124,7 @@
 <center>图4. CI/CD 流程</center>
 系统的部署图如下：
 
-![Deployment Diagram](/home/zyven/go/src/software-theory-final/docs/images/Deployment Diagram.png)
+![Deployment Diagram](https://github.com/Nonsensersunny/software-theory-final/blob/master/docs/images/Deployment%20Diagram.png)
 
 <center>图5. 部署图</center>
 ##### 3.6.1 Travis
