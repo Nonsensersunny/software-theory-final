@@ -8,18 +8,20 @@ export default{
 	data(){
 		return{
 			series:[],
-
+			dataset:[],
+			algorithm:[]
 		}
 	},
 	mounted(){
 		this.init()
 	},
 	methods:{
-		changeForm(){
+		changeForm(response){
 			//只要name一样就放在一个系列里，根据{'算法名':0.955} 这个格式存进series的data里
 			//并把数据集name存进series的name里
 			//对x轴的类别 记得改一下，要统一。
 				var item = {
+					id:'',
 					name:'',
 					type:'scatter',
 					symbolSize: function (data) {
@@ -33,7 +35,8 @@ export default{
 					item.name = ""
 					item.data = []
 					var data = response.data.data.prediction[i]//第i条预测数据
-					//通过name去找所在的series，并把算法名和准确率放到data里
+					this.changeData(data)
+					//通过name去找所在的series//并把算法名algorithm_name和准确率放到data里
 					if(this.series.length != 0)
 					{
 						for(var j=0;j<this.series.length;j++)
@@ -59,13 +62,38 @@ export default{
 				}
 
 		},
-
+		changeData(params)//把数据集算法的name属性加到预测结果里。
+		{
+			for(var i=0;i<this.dataset.length;i++)
+			{
+				if(params.test == this.dataset[i].id)
+					params.name = this.dataset[i].name
+				if(params.algorithm == this.algorithm[i].name)
+					params.algorithm_name = this.algorithm[i].name
+			}
+		},
 		init(){
-			this.$axios.get(this.$axios.default.baseURL+'/prediction')
+			this.$axios.get(this.$axios.defaults.baseURL+'/algorithm')
+			.then(response=>{
+				var len=response.data.data.algorithms.length;
+		        for(var i=0;i<len;i++)
+		        {
+		          this.algorithm.push(response.data.data.algorithms[i])
+		        }
+			});
+			this.$axios.get(this.$axios.defaults.baseURL+'/dataset')
+			.then(response=>{
+				var len=response.data.data.datasets.length;
+		        for(var i=0;i<len;i++)
+		        {
+		          this.dataset.push(response.data.data.datasets[i])
+		        }
+			});
+			this.$axios.get(this.$axios.defaults.baseURL+'/prediction')
 			.then(response=>{
 				console.log(response)
-				this.changeForm();
-			})		
+				this.changeForm(response);
+			})	;	
 			
 			var myChart = this.$echarts.init(document.getElementById('chart'));
 			myChart.setOption({//横坐标是方法 纵坐标是准确率 要有多个类别（样本类别）
