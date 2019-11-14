@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 import json
 import sys
 import uuid
@@ -122,26 +121,23 @@ def sigmoid(x):
     return s
 
 def main(train_path, test_path, output_path):
+ 
     data = pd.read_csv(train_path,header = None)
+
     train = np.array(data)
 
     X = train[:,0:-1]
     Y = train[:,-1]
     Y = Y.reshape((Y.shape[0],1))
-    """
-    #print(X.shape)
-    #print(X)
-    #print(Y.shape) # 1*6100
-    #print(Y)
-    """
+    
     X = X.T
     Y = Y.T
     n_x = X.shape[0]
     n_h = 32
     n_y = 2
-
+    
     parameters = initialize_parameters(n_x, n_h, n_y)
-
+    
 
     num_iterations = 5000
     nuber = Y.shape[1]
@@ -152,37 +148,19 @@ def main(train_path, test_path, output_path):
             label_train[0][k] = 1
         if Y[0][k] == 1:
             label_train[1][k] = 1
-
-        #label_train[int(Y[0][i])][i]=1
-
-    #print(label_train.shape)
-    #print(label_train)
+        
     for i in range(0, num_iterations):
-        learning_rate=0.005
-        #if i>1000:
-           # learning_rate=learning_rate*0.999
-        # Forward propagation. Inputs: "X, parameters". Outputs: "A2, cache".
+        learning_rate=0.00095
         A2, cache = forward_propagation(X, parameters)
-
+            
         pre_model = softmax(A2)
-        #pre_model = A2
-
-        # Cost function. Inputs: "A2, Y, parameters". Outputs: "cost".
         cost = compute_cost(pre_model, label_train, parameters)
-
-        # Backpropagation. Inputs: "parameters, cache, X, Y". Outputs: "grads".
+    
         grads = backward_propagation(parameters, cache, X, label_train)
-
-        # Gradient descent parameter update. Inputs: "parameters, grads". Outputs: "parameters".
-        parameters = update_parameters(parameters, grads, learning_rate)
-
-            # Print the cost every 1000 iterations
-        if i % 1000 == 0:
-            print ("Cost after iteration %i: %f" %(i, cost))
-            plt.plot(i, cost, 'ro')
-
-
-    data = pd.read_csv(test_path,header = None)
+    
+        parameters = update_parameters(parameters, grads, learning_rate)  
+            
+    data = pd.read_csv(train_path,header = None)
     test = np.array(data)
 
     X_test = test[:,0:len(test[0])-1]
@@ -204,32 +182,36 @@ def main(train_path, test_path, output_path):
         #在val上计算准确度
         if predict_value==int(Y_label[:,j]):
             count=count+1
+            
+    accu = float(count)/Y_label.shape[1]
+    data = pd.read_csv(test_path,header = None)
+    test = np.array(data)
+    #print test.shape
 
-    print(float(count)/Y_label.shape[1])
-""""
-data = pd.read_csv('data/test.csv',header = None)
-test = np.array(data)
-#print test.shape
+    X_test = test[:,0:len(test[0])]
+    #Y_label = test[:,-1]
+    #Y_label = Y_label.reshape((Y_label.shape[0],1))
+    X_test = X_test.T
+    #Y_label = Y_label.T
+    #print Y_label
 
-X_test = test[:,0:len(test[0])]
-#Y_label = test[:,-1]
-#Y_label = Y_label.reshape((Y_label.shape[0],1))
-X_test = X_test.T
-#Y_label = Y_label.T
-#print Y_label
+    count = 0
+    a2,xxx=forward_propagation(X_test,parameters)
 
-count = 0
-a2,xxx=forward_propagation(X_test,parameters)
-
-answer_list = []
-for j in range(len(X_test[0])):
-    #np.argmax返回最大值的索引
-    predict_value=np.argmax(a2[:,j])
-    answer_list.append(predict_value)
-    #在val上计算准确度
+    answer_list = []
+    for j in range(len(X_test[0])):
+        #np.argmax返回最大值的索引
+        predict_value=np.argmax(a2[:,j])
+        answer_list.append(float(predict_value))
+        #在val上计算准确度
+        
+    res = {}
+    res["output"] = answer_list
+    res["accuracy"] = accu
+    with open(output_path, "w") as f:
+        f.write(json.dumps(res))
+    print(f'{answer_list}@{accu}')
     
-print answer_list
-"""
 if __name__ == "__main__":
     train_path = sys.argv[1]
     test_path = sys.argv[2]

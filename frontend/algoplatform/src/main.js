@@ -21,7 +21,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 axios.defaults.headers.get['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 axios.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 // axios.defaults.baseURL = "http://106.13.90.235:10000";
-axios.defaults.baseURL = "http://106.13.90.235:8910";
+axios.defaults.baseURL = "http://47.94.233.125:10000";
 
 axios.defaults.withCredentials = true;
 // Vue.http.interceptors.push(function(request,next){

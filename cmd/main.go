@@ -22,33 +22,38 @@ func (app *App) init_algos() {
 	algorithmService := service.NewAlgorithmService(config.GetMySQLClient())
 	algorithmService.CreateAlgorithm(&model.Algorithm{
 		Name: "Bayes",
-		Path: "data/Bayes.py",
+		Path: "algorithm/Bayes.py",
 		Description: "贝叶斯",
 	})
 	algorithmService.CreateAlgorithm(&model.Algorithm{
 		Name: "kNN",
-		Path: "data/kNN.py",
+		Path: "algorithm/kNN.py",
 		Description: "k临近算法",
 	})
 	algorithmService.CreateAlgorithm(&model.Algorithm{
 		Name: "Logistic Regression",
-		Path: "data/LogisticRegression.py",
+		Path: "algorithm/LogisticRegression.py",
 		Description: "Logistic回归",
 	})
 	algorithmService.CreateAlgorithm(&model.Algorithm{
 		Name: "Random Forest",
-		Path: "data/RandomForest.py",
+		Path: "algorithm/RandomForest.py",
 		Description: "随机森林",
 	})
 	algorithmService.CreateAlgorithm(&model.Algorithm{
 		Name: "SGDC",
-		Path: "data/SGDC.py",
+		Path: "algorithm/SGDC.py",
 		Description: "随机梯度下降",
 	})
 	algorithmService.CreateAlgorithm(&model.Algorithm{
 		Name: "SVM",
-		Path: "data/SVM.py",
+		Path: "algorithm/SVM.py",
 		Description: "支持向量机",
+	})
+	algorithmService.CreateAlgorithm(&model.Algorithm{
+		Name: "NN",
+		Path: "algorithm/NN.py",
+		Description: "全连接神经网络",
 	})
 }
 

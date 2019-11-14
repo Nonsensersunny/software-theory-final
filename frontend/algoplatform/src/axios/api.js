@@ -43,7 +43,7 @@ export const GuestHttp = {
 
 export const UserHttp = {
   client: axios.create({
-    baseURL: 'http://106.13.90.235:10000',
+    baseURL: 'http://127.0.0.1:8080',
   }),
 
 }

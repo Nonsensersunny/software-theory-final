@@ -2,12 +2,13 @@ package v1
 
 import (
 	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
+	"os/exec"
 	"software-theory-final/internal/config"
 	"software-theory-final/internal/utils"
 	"software-theory-final/pkg/modules/model"
 	"software-theory-final/pkg/service"
-	"os/exec"
 	"strconv"
 	"strings"
 )
@@ -48,6 +49,7 @@ func CreatePrediction(c *gin.Context) {
 		c.JSON(http.StatusOK, utils.ErrorHelper(err, utils.ALGORITHM_EXEC_FAIL))
 		return
 	}
+	log.Println(buf)
 	strBuf := strings.ReplaceAll(string(buf), "\n", "")
 	output := strings.Split(strBuf, "@")
 	if len(output) < 2 {
@@ -60,17 +62,19 @@ func CreatePrediction(c *gin.Context) {
 		return
 	}
 	predictionService := service.NewPredictionService(config.GetMySQLClient())
-	if err := predictionService.CreatePrediction(&model.Prediction{
+	pdc := &model.Prediction{
 		Aid:      algo.Id,
 		TrainId:  trainDataset.Id,
 		TestId:   testDataset.Id,
 		Accuracy: accuracy,
 		Path:     output[0],
-	}); err != nil {
+	}
+	err = predictionService.CreatePrediction(pdc)
+	if err != nil {
 		c.JSON(http.StatusOK, utils.ErrorHelper(err, utils.CREATE_PREDICTION_FAIL))
 		return
 	}
-	c.JSON(http.StatusOK, utils.RespHelper(utils.SetData("result", buf)))
+	c.JSON(http.StatusOK, utils.RespHelper(utils.SetData("result", pdc.Id)))
 }
 
 
