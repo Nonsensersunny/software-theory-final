@@ -16,10 +16,10 @@ Vue.use(echarts)
 Vue.prototype.$echarts = echarts
 // Vue.use(Cookies)
 axios.defaults.timeout = 50000;
-axios.defaults.headers.put['Access-Control-Allow-Origin']=''
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-axios.defaults.headers.get['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-axios.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+// axios.defaults.headers.put['Access-Control-Allow-Origin']=''
+// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+// axios.defaults.headers.get['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+// axios.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 // axios.defaults.baseURL = "http://106.13.90.235:10000";
 axios.defaults.baseURL = "http://47.94.233.125:10000";
 
