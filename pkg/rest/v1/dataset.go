@@ -3,6 +3,7 @@ package v1
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	uuid "github.com/satori/go.uuid"
 	"io"
 	"net/http"
 	"os"
@@ -23,13 +24,13 @@ func UploadDataset(c *gin.Context) {
 	typ := c.Request.PostFormValue("type")
 	name := c.Request.PostFormValue("name")
 
-	file, header, err := c.Request.FormFile("upload")
+	file, _, err := c.Request.FormFile("upload")
 	if err != nil {
 		c.JSON(http.StatusOK, utils.ErrorHelper(err, utils.UPLOAD_FILE_FAIL))
 		return
 	}
 
-	filename := fmt.Sprintf("%s/%s", utils.GetDataSetsDir(uid), header.Filename)
+	filename := fmt.Sprintf("%s/%s", utils.GetDataSetsDir(uid), fmt.Sprintf("%s.csv", uuid.NewV1()))
 	out, err := os.Create(filename)
 	defer out.Close()
 	if err != nil {

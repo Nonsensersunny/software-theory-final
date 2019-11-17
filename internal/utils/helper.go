@@ -3,6 +3,8 @@ package utils
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"io/ioutil"
+	"os"
 )
 
 func ErrorHelper(err error, statusCode int) gin.H {
@@ -40,4 +42,16 @@ func GetDataSetsDir(id string) string {
 
 func GetPredictionsDir(id string) string {
 	return fmt.Sprintf("data/%s/prediction", id)
+}
+
+func GetFileContent(filepath string) (string, error) {
+	f, err := os.Open(filepath)
+	if err != nil {
+		return "", err
+	}
+	btCnt, err := ioutil.ReadAll(f)
+	if err != nil {
+		return "", err
+	}
+	return string(btCnt), nil
 }

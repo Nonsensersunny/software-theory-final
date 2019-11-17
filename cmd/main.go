@@ -11,7 +11,6 @@ import (
 	"software-theory-final/pkg/modules/model"
 	"software-theory-final/pkg/rest"
 	"software-theory-final/pkg/service"
-	"strconv"
 )
 
 type App struct {
@@ -82,7 +81,7 @@ func Init() (app App) {
 func main() {
 	app := Init()
 	app.init_algos()
-	gin.SetMode(gin.ReleaseMode)
+	gin.SetMode(gin.DebugMode)
 	r := gin.Default()
 
 	corsConfig := cors.DefaultConfig()
@@ -93,5 +92,5 @@ func main() {
 
 	rest.REST(r)
 
-	r.Run(":" + strconv.Itoa(app.serverConf.Http.Port))
+	r.Run(fmt.Sprintf("%s:%d", app.serverConf.Http.Host, app.serverConf.Http.Port))
 }

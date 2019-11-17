@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 
 Vue.use(Router)
 
@@ -9,8 +8,8 @@ export default new Router({
     {
       path: '/',
       name: '登录',
-      component: () => import(/* webpackChunkName: "about" */ '../views/login.vue')
-  
+      component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue')
+
       // component: DatasetControl
     },{
       path: '/main',
@@ -27,14 +26,14 @@ export default new Router({
       path: '/main/dataset',
       name: '数据集管理',
       component: () => import(/* webpackChunkName: "about" */ '../views/DatasetControl.vue')
-  
+
       // component: DatasetControl
     },
     {
       path: '/main/dataset',
       name: '数据集管理',
       component: () => import(/* webpackChunkName: "about" */ '../views/DatasetControl.vue')
-  
+
       // component: DatasetControl
     },
     {
@@ -54,7 +53,7 @@ export default new Router({
       path: '/main/forecast/begin',
       name: '开始预测',
       component: () => import(/* webpackChunkName: "about" */ '../views/begin_forecast.vue')
-    }, 
+    },
     {
       path: '/main/forecast/check',
       name: '预测结果',
