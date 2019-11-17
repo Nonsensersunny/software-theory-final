@@ -17,6 +17,7 @@ func REST(engine *gin.Engine) {
 	{
 		datasetRoute.PUT("/", v1.UploadDataset)
 		datasetRoute.GET("/", v1.GetDataSets)
+		datasetRoute.DELETE("/", v1.DelDatasetById)
 	}
 
 	algorithmRoute := engine.Group("/algorithm")

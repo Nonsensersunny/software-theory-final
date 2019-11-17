@@ -46,16 +46,16 @@ export const UserHttp = {
     return resp.data;
   },
   async createPrediction(train, test, algorithm) {
-    // let data = new FormData();
-    // data.append('train', train);
-    // data.append('test', test);
-    // data.append('algorithm', algorithm)
     let data = {
       train: train,
       test: test,
       algorithm: algorithm
     }
     let resp = await this.client.post('prediction/', data);
+    return resp.data;
+  },
+  async delDatasetById(id) {
+    let resp = await this.client.delete(`dataset/?id=${id}`);
     return resp.data;
   }
 }

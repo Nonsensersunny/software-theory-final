@@ -76,7 +76,7 @@ func Login(c *gin.Context) {
 	}
 
 	sessionId := uuid.NewV4().String()
-	_ = config.GetRedisClient().Set(dbUser.Id + "-session_id", sessionId, time.Hour *12)
+	_ = config.GetRedisClient().Set(dbUser.Id+"-session_id", sessionId, time.Hour*12)
 	c.SetCookie("uid", dbUser.Id, 3600, "/", "", false, false)
 	c.SetCookie("session_id", sessionId, 3600, "/", "", false, false)
 	c.JSON(http.StatusOK, utils.RespHelper(utils.SuccessResp()))

@@ -77,7 +77,6 @@ func CreatePrediction(c *gin.Context) {
 	c.JSON(http.StatusOK, utils.RespHelper(utils.SetData("result", pdc.Id)))
 }
 
-
 func GetPredictions(c *gin.Context) {
 	predictionService := service.NewPredictionService(config.GetMySQLClient())
 	id := c.Query("id")

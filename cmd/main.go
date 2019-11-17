@@ -14,44 +14,44 @@ import (
 )
 
 type App struct {
-	serverConf        *config.ServerConf
+	serverConf *config.ServerConf
 }
 
 func (app *App) init_algos() {
 	algorithmService := service.NewAlgorithmService(config.GetMySQLClient())
 	algorithmService.CreateAlgorithm(&model.Algorithm{
-		Name: "Bayes",
-		Path: "algorithm/Bayes.py",
+		Name:        "Bayes",
+		Path:        "algorithm/Bayes.py",
 		Description: "贝叶斯",
 	})
 	algorithmService.CreateAlgorithm(&model.Algorithm{
-		Name: "kNN",
-		Path: "algorithm/kNN.py",
+		Name:        "kNN",
+		Path:        "algorithm/kNN.py",
 		Description: "k临近算法",
 	})
 	algorithmService.CreateAlgorithm(&model.Algorithm{
-		Name: "Logistic Regression",
-		Path: "algorithm/LogisticRegression.py",
+		Name:        "Logistic Regression",
+		Path:        "algorithm/LogisticRegression.py",
 		Description: "Logistic回归",
 	})
 	algorithmService.CreateAlgorithm(&model.Algorithm{
-		Name: "Random Forest",
-		Path: "algorithm/RandomForest.py",
+		Name:        "Random Forest",
+		Path:        "algorithm/RandomForest.py",
 		Description: "随机森林",
 	})
 	algorithmService.CreateAlgorithm(&model.Algorithm{
-		Name: "SGDC",
-		Path: "algorithm/SGDC.py",
+		Name:        "SGDC",
+		Path:        "algorithm/SGDC.py",
 		Description: "随机梯度下降",
 	})
 	algorithmService.CreateAlgorithm(&model.Algorithm{
-		Name: "SVM",
-		Path: "algorithm/SVM.py",
+		Name:        "SVM",
+		Path:        "algorithm/SVM.py",
 		Description: "支持向量机",
 	})
 	algorithmService.CreateAlgorithm(&model.Algorithm{
-		Name: "NN",
-		Path: "algorithm/NN.py",
+		Name:        "NN",
+		Path:        "algorithm/NN.py",
 		Description: "全连接神经网络",
 	})
 }

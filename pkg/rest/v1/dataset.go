@@ -1,6 +1,8 @@
 package v1
 
+import "C"
 import (
+	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	uuid "github.com/satori/go.uuid"
@@ -92,4 +94,19 @@ func GetDataSets(c *gin.Context) {
 		return
 	}
 	GetDatasetsByUid(uid, c)
+}
+
+func DelDatasetById(c *gin.Context) {
+	id := c.Query("id")
+	if id == "" {
+		c.JSON(http.StatusOK, utils.ErrorHelper(errors.New("id not valid"), utils.INVALID_PATH_PARAMETER))
+		return
+	}
+	service := service.NewDatasetService(config.GetMySQLClient())
+	err := service.DelDatasetById(id)
+	if err != nil {
+		c.JSON(http.StatusOK, utils.ErrorHelper(err, utils.DELETE_DATASET_FAIL))
+		return
+	}
+	c.JSON(http.StatusOK, utils.RespHelper(utils.SuccessResp()))
 }

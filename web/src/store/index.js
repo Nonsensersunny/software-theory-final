@@ -38,6 +38,9 @@ export default new Vuex.Store({
     },
     async createPrediction(context, {trainId, testId, algorithmId}) {
       return await UserHttp.createPrediction(trainId, testId, algorithmId);
+    },
+    async delDatasetById(context, id) {
+      return await UserHttp.delDatasetById(id);
     }
   }
 })

@@ -31,7 +31,7 @@
                     <el-button size="mini" type="success" @click="predictVisible = true">预测</el-button>
                 </template>
                 <template slot-scope="scope">
-                    <el-button size="mini" type="danger">删除</el-button>
+                    <el-button size="mini" type="danger" @click="delDatasetById(scope.row.id)">删除</el-button>
                     <el-button size="mini" type="info">历史</el-button>
                 </template>
             </el-table-column>
@@ -177,6 +177,19 @@
                             type: "error",
                             message: "上传失败"
                         });
+                    }
+                } catch (e) {
+                    console.log(e)
+                }
+            },
+            async delDatasetById(id) {
+                try {
+                    let resp = await this.$store.dispatch("delDatasetById", id);
+                    if (resp.code === 0) {
+                        this.$message.success("数据集删除成功");
+                        this.getDatasets();
+                    } else {
+                        this.$message.error("数据集删除失败");
                     }
                 } catch (e) {
                     console.log(e)

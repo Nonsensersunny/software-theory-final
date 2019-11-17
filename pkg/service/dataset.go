@@ -9,7 +9,6 @@ type DatasetService struct {
 	client *mysql.Client
 }
 
-
 func NewDatasetService(client *mysql.Client) *DatasetService {
 	return &DatasetService{
 		client: client,
@@ -30,4 +29,8 @@ func (d *DatasetService) GetDatasetsByUid(uid string) ([]*model.Dataset, error) 
 	var datasets []*model.Dataset
 	err := d.client.DB.Table("datasets").Where("uid = ?", uid).Scan(&datasets).Error
 	return datasets, err
+}
+
+func (d *DatasetService) DelDatasetById(id string) error {
+	return d.client.DB.Table("datasets").Delete(model.Dataset{}, "id = ?", id).Error
 }
