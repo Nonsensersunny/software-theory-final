@@ -210,10 +210,10 @@ def main(train_path, test_path, output_path):
     res["accuracy"] = accu
     with open(output_path, "w") as f:
         f.write(json.dumps(res))
-    print(f'{answer_list}@{accu}')
+    print('{}@{}'.format(output_path, accu))
     
 if __name__ == "__main__":
     train_path = sys.argv[1]
     test_path = sys.argv[2]
-    output_path = f'data/{sys.argv[3]}/prediction/{uuid.uuid1()}.json'
+    output_path = 'data/{}/prediction/{}.json'.format(sys.argv[3], uuid.uuid1())
     main(train_path, test_path, output_path)
