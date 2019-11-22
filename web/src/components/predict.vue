@@ -2,7 +2,7 @@
     <div id="predict">
         <el-steps :active="activeStep">
             <el-step title="选取训练集" icon="el-icon-edit"></el-step>
-            <el-step title="选取测试集" icon="el-icon-plus"></el-step>
+            <el-step title="选取预测集" icon="el-icon-plus"></el-step>
             <el-step title="选取算法" icon="el-icon-edit"></el-step>
             <el-step title="测试" icon="el-icon-edit"></el-step>
         </el-steps>
@@ -15,7 +15,7 @@
                         :value="train.id"></el-option>
             </el-select>
             <el-button @click="activeStep += 1" :disabled="trainId === ''" v-if="activeStep === 1">确定</el-button>
-            <el-select v-model="testId" placeholder="选择测试集" v-if="activeStep === 2">
+            <el-select v-model="testId" placeholder="选择预测集" v-if="activeStep === 2">
                 <el-option
                         v-for="test in testDatasets"
                         :key="test.id"
@@ -44,7 +44,7 @@
                 </div>
             </el-card>
             <el-card v-if="testId !== '' && activeStep >= 2">
-                <div slot="header">测试集</div>
+                <div slot="header">预测集</div>
                 <div>
                     <p>名称：{{ getDataById(testDatasets, testId).name }}</p>
                     <p>类型：{{ getDataById(testDatasets, testId).type | datasetTypeFilter }}</p>
@@ -64,10 +64,10 @@
     export default {
         name: "predict",
         filters: {
-            datasetTypeFilter(dataset) {
-                if (dataset.type === 'test') {
-                    return '测试集';
-                } else if (dataset.type === 'train') {
+            datasetTypeFilter(type) {
+                if (type === 'test') {
+                    return '预测集';
+                } else if (type === 'train') {
                     return '训练集';
                 } else {
                     return '位置类型';
@@ -111,6 +111,7 @@
                     let testId = this.testId;
                     let algorithmId = this.algorithmId;
                     let resp = await this.$store.dispatch("createPrediction", {trainId, testId, algorithmId});
+                    console.log(resp)
                     if (resp.code === 0) {
                         this.$message.success('预测完成');
                         this.$emit("predict-success");
@@ -138,5 +139,7 @@
 </script>
 
 <style scoped>
-
+#predict{
+    
+}
 </style>

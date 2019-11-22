@@ -57,7 +57,23 @@ export const UserHttp = {
   async delDatasetById(id) {
     let resp = await this.client.delete(`dataset/?id=${id}`);
     return resp.data;
-  }
+  },
+  async GetPredictionsByAid(id){
+    let resp = await this.client.get(`prediction/?aid=${id}`)
+    return resp;
+  },
+  async GetPredictionsById(id){
+    let resp = await this.client.get(`prediction/?id=${id}`)
+    return resp;
+  },
+  async GetPredictionsBytestId(id){
+    let resp = await this.client.get(`prediction/?test_id=${id}`)
+    return resp;
+  },
+  async GetPredictionsBytrainId(id){
+    let resp = await this.client.get(`prediction/?train_id=${id}`)
+    return resp;
+  },
 }
 
 function errorHandler(e) {

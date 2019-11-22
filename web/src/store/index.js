@@ -41,6 +41,18 @@ export default new Vuex.Store({
     },
     async delDatasetById(context, id) {
       return await UserHttp.delDatasetById(id);
-    }
+    },
+    async GetPredictionsByAid(context,id){
+      return await UserHttp.GetPredictionsByAid(id);
+    },
+    async GetPredictionsById(context,id){
+      return await UserHttp.GetPredictionsById(id);
+    },
+    async GetPredictionsBytestId(context,id){
+      return await UserHttp.GetPredictionsBytestId(id);
+    },
+    async GetPredictionsBytrainId(context,id){
+      return await UserHttp.GetPredictionsBytrainId(id);
+    },
   }
 })

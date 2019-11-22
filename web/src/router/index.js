@@ -7,8 +7,8 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: Home
+    name: 'login',
+    component:  () => import('../views/Login.vue')
   },
   {
     path: '/about',
@@ -24,10 +24,25 @@ const routes = [
     component: () => import('../views/Login.vue')
   },
   {
+    path: "/main",
+    name: "main",
+    component: () => import('../views/Main.vue')
+  },
+  {
     path: "/dataset",
     name: "dataset",
     component: () => import('../views/Dataset.vue')
-  }
+  },
+  {
+    path: "/prediction",
+    name: "prediction",
+    component: () => import('../views/Prediction.vue')
+  },
+  {
+    path: "/chart",
+    name: "chart",
+    component: () => import('../views/Chart.vue')
+  },
 ]
 
 const router = new VueRouter({
